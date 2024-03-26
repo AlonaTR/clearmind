@@ -1,0 +1,37 @@
+.log-in-button-container {
+  width: 100%;
+  height: auto;
+  display: flex;
+  position: relative;
+  align-items: flex-start;
+  flex-direction: column;
+}
+.log-in-button-hero-button1 {
+  color: var(--dl-color-gray-white);
+  width: 191px;
+  height: auto;
+  font-size: 18px;
+  align-self: flex-end;
+  margin-top: var(--dl-space-space-twounits);
+  transition: 0.3s;
+  font-weight: bold;
+  padding-top: 1rem;
+  border-color: var(--dl-color-primary1-blue100);
+  border-width: 0px;
+  margin-right: var(--dl-space-space-twounits);
+  padding-left: 3rem;
+  border-radius: 45px;
+  padding-right: 3rem;
+  padding-bottom: 1rem;
+  background-color: var(--dl-color-primary1-blue100);
+}
+.log-in-button-hero-button1:hover {
+  color: var(--dl-color-gray-white);
+  border-color: rgba(41, 20, 119, 0.9);
+  background-color: rgba(41, 20, 119, 0.9);
+}
+@media(max-width: 1200px) {
+  .log-in-button-container {
+    height: auto;
+  }
+}
