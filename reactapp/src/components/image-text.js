@@ -1,12 +1,10 @@
-import React from 'react'
-
-import PropTypes from 'prop-types'
-
-import './image-text.css'
+import React from 'react';
+import PropTypes from 'prop-types';
+import './image-text.css';
 
 const ImageText = (props) => {
   return (
-    <div className={`image-text-feature-card ${props.rootClassName} `}>
+    <div className={`image-text-feature-card ${props.rootClassName}`}>
       <div className="image-text-container">
         <img
           alt={props.imageAlt1}
@@ -16,8 +14,8 @@ const ImageText = (props) => {
       </div>
       <h3 className="image-text-text heading3">{props.heading}</h3>
     </div>
-  )
-}
+  );
+};
 
 ImageText.defaultProps = {
   imageSrc1:
@@ -30,7 +28,7 @@ ImageText.defaultProps = {
     'Lorem ipsum dolor sit amet, consectetur adipiscing elit. In lorem lorem, malesuada in metus vitae, scelerisque accumsan ipsum.',
   rootClassName: '',
   imageAlt: 'image',
-}
+};
 
 ImageText.propTypes = {
   imageSrc1: PropTypes.string,
@@ -40,6 +38,6 @@ ImageText.propTypes = {
   subHeading: PropTypes.string,
   rootClassName: PropTypes.string,
   imageAlt: PropTypes.string,
-}
+};
 
-export default ImageText
+export default ImageText;

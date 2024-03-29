@@ -1,4 +1,6 @@
 from django.db import models
+from os.path import basename
+
 
 class Data(models.Model):
     MEDITATION = 'Meditation'
