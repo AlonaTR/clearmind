@@ -5,11 +5,15 @@ from .models import Data
 from .serializers import DataSerializer
 
 class MeditationDataView(viewsets.ModelViewSet):
-    queryset = Data.objects.filter(type=Data.MEDITATION)  # Replace 'type' with the actual field name in your model
+    queryset = Data.objects.filter(type=Data.MEDITATION)  
     serializer_class = DataSerializer
 
 class AffirmationDataView(viewsets.ModelViewSet):
-    queryset = Data.objects.filter(type=Data.AFFIRMATION)  # Replace 'type' with the actual field name in your model
+    queryset = Data.objects.filter(type=Data.AFFIRMATION)  
+    serializer_class = DataSerializer
+
+class AllDataView(viewsets.ModelViewSet):
+    queryset = Data.objects.all()
     serializer_class = DataSerializer
 
 def main(request):

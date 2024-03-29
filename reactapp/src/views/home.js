@@ -1,5 +1,6 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { useHistory, Link } from 'react-router-dom'
+import axios from 'axios'
 import { Helmet } from 'react-helmet'
 
 import PhotoLogo from '../components/photo-logo'
@@ -9,20 +10,38 @@ import Question from '../components/question'
 import './home.css'
 
 const Home = (props) => {
-  const history = useHistory(); // Створіть об'єкт history
+  const history = useHistory(); 
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(`/api/data`); 
+        setData(response.data);
+        console.log(response.data);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   const handleGetStarted = () => {
-    history.push('/allitems'); // Перейдіть на URL /allitems при кліку на кнопку "Get Started"
+    history.push('/allitems'); 
   };
   const meditation_url = '/onetype/meditation';
   const affirmation_url = '/onetype/affirmation';
   const breathing_url = '/onetype/breathing';
+  const test_url = () => {
+    history.push('/test'); 
+  };
 
   return (
     <div className="home-container">
       <Helmet>
-        <title>Loyal Cooked Shark</title>
-        <meta property="og:title" content="Loyal Cooked Shark" />
+        <title>Clear Mind</title>
+        <meta property="og:title" content="Clear Mind" />
       </Helmet>
       <div className="home-hero">
         <PhotoLogo rootClassName="photo-logo-root-class-name"></PhotoLogo>
@@ -108,7 +127,7 @@ const Home = (props) => {
           <span className="home-banner-sub-heading">
             Find the Perfect Meditation Practice for You
           </span>
-          <button className="home-banner-button button">Take the Test</button>
+          <button className="home-banner-button button" onClick={test_url}>Take the Test</button>
         </div>
       </div>
       <div className="home-gallery">
@@ -125,27 +144,15 @@ const Home = (props) => {
             There are our most popular meditations:
           </span>
           <div className="home-gallery2">
-            <GalleryCard11 rootClassName="rootClassName"></GalleryCard11>
-            <GalleryCard11
-              imageSrc="https://images.unsplash.com/photo-1579551053957-ee77f9b970c7?ixid=Mnw5MTMyMXwwfDF8c2VhcmNofDQ2fHx3b29kc3xlbnwwfHx8fDE2MjY0NDc1ODg&amp;ixlib=rb-1.2.1&amp;w=1000"
-              rootClassName="rootClassName1"
-            ></GalleryCard11>
-            <GalleryCard11
-              imageSrc="https://images.unsplash.com/photo-1425913397330-cf8af2ff40a1?ixid=Mnw5MTMyMXwwfDF8c2VhcmNofDN8fHdvb2RzfGVufDB8fHx8MTYyNjQ0NzU3Mw&amp;ixlib=rb-1.2.1&amp;w=1000"
-              rootClassName="rootClassName2"
-            ></GalleryCard11>
-            <GalleryCard11
-              imageSrc="https://images.unsplash.com/photo-1439853949127-fa647821eba0?ixid=Mnw5MTMyMXwwfDF8c2VhcmNofDE4fHxuYXR1cmV8ZW58MHx8fHwxNjI2NDQ3ODAw&amp;ixlib=rb-1.2.1&amp;w=1000"
-              rootClassName="rootClassName3"
-            ></GalleryCard11>
-            <GalleryCard11
-              imageSrc="https://images.unsplash.com/photo-1529948723647-8b7bd77b441c?ixid=Mnw5MTMyMXwwfDF8c2VhcmNofDExfHxjbGlmZnxlbnwwfHx8fDE2MjY0NDc4MjQ&amp;ixlib=rb-1.2.1&amp;w=1000"
-              rootClassName="rootClassName4"
-            ></GalleryCard11>
-            <GalleryCard11
-              imageSrc="https://images.unsplash.com/photo-1553570739-330b8db8a925?ixid=Mnw5MTMyMXwwfDF8c2VhcmNofDI0fHxvY2VhbnxlbnwwfHx8fDE2MjY0NDc4ODQ&amp;ixlib=rb-1.2.1&amp;w=1000"
-              rootClassName="rootClassName5"
-            ></GalleryCard11>
+            {data.slice(0, 6).map(item => (
+              <Link to={`/item/${item.id}`} key={item.id}>
+                <GalleryCard11
+                  title={item.name}
+                  imageSrc={item.image}
+                  rootClassName={`rootClassName1${item.id}`}
+                ></GalleryCard11>
+              </Link>
+            ))}
           </div>
         </div>
       </div>
