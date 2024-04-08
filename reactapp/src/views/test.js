@@ -1,4 +1,5 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
+import axios from 'axios'
 
 import { Helmet } from 'react-helmet'
 
@@ -6,11 +7,53 @@ import TestQuestion from '../components/test-question'
 import './test.css'
 
 const Test = (props) => {
+  const [questions, setQuestions] = useState([]);
+  const [selectedAnswers, setSelectedAnswers] = useState({});
+  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+  const [totalScore, setTotalScore] = useState(0);
+  const [showScore, setShowScore] = useState(false); // New state variable to control score display
+  const isLastQuestion = currentQuestionIndex === questions.length - 1;
+
+
+  useEffect(() => {
+    // Fetch test questions from the backend
+    const fetchQuestions = async () => {
+      try {
+        const response = await axios.get('/api/test-questions');
+        setQuestions(response.data);
+      } catch (error) {
+        console.error('Error fetching test questions:', error);
+      }
+    };
+
+    fetchQuestions();
+  }, []);
+
+  const handleAnswerSelect = (questionId, answerPoints) => {
+    setSelectedAnswers({
+      ...selectedAnswers,
+      [questionId]: answerPoints,
+    });
+  };
+
+  const handleNextQuestion = () => {
+    if (isLastQuestion) {
+      // Calculate the total score only if it's the last question
+      const score = Object.values(selectedAnswers).reduce((acc, points) => acc + points, 0);
+      setTotalScore(score);
+      setShowScore(true); // Set showScore to true to display the score
+    } else {
+      setCurrentQuestionIndex(currentQuestionIndex + 1);
+    }
+  };
+
+  const currentQuestion = questions[currentQuestionIndex];
+
   return (
     <div className="test-container">
       <Helmet>
-        <title>Test - Loyal Cooked Shark</title>
-        <meta property="og:title" content="Test - Loyal Cooked Shark" />
+        <title>Test - Clear Mind</title>
+        <meta property="og:title" content="Test - Clear Mind" />
       </Helmet>
       <div className="test-hero">
         <button className="test-hero-button1 button">Log in</button>
@@ -96,10 +139,44 @@ const Test = (props) => {
               </span>
             </div>
             <div className="test-test">
-              <TestQuestion rootClassName="test-question-root-class-name"></TestQuestion>
+              {!showScore && currentQuestion && (
+                <TestQuestion
+                  question={currentQuestion.question_text}
+                  answers={[
+                    { text: currentQuestion.answer_choice_1, points: currentQuestion.answer_choice_1_points },
+                    { text: currentQuestion.answer_choice_2, points: currentQuestion.answer_choice_2_points },
+                    { text: currentQuestion.answer_choice_3, points: currentQuestion.answer_choice_3_points },
+                    { text: currentQuestion.answer_choice_4, points: currentQuestion.answer_choice_4_points },
+                  ]}
+                  onAnswerSelect={(points) => handleAnswerSelect(currentQuestion.id, points)}
+                />
+              )}
+              {showScore && (
+                <div className="test-score-container">
+                  <h3>Your Total Score</h3>
+                  <p>{totalScore}</p>
+                </div>
+              )}
+
               <div className="test-buttons">
-                <button className="test-back-button button">&lt;-- Back</button>
-                <button className="test-next-button button">Next --&gt;</button>
+                {currentQuestionIndex > 0 || showScore ? ( // Show the "Back" button if not on the first question or if showing the score
+                  <button className="test-back-button button" onClick={() => {
+                    if (showScore) {
+                      setShowScore(false); // Hide the score
+                      setCurrentQuestionIndex(questions.length - 1); // Go back to the last question
+                    } else {
+                      setCurrentQuestionIndex(currentQuestionIndex - 1);
+                    }
+                  }}>
+                    &lt;-- Back
+                  </button>
+                ) : null}
+
+                {!showScore && (
+                  <button className="test-next-button button" onClick={handleNextQuestion}>
+                    {isLastQuestion ? 'Result' : 'Next >'}
+                  </button>
+                )}
               </div>
             </div>
           </div>

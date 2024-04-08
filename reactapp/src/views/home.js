@@ -53,7 +53,9 @@ const Home = (props) => {
             </span>
             <div className="home-btn-group">
               <button className="home-hero-button1 button" onClick={handleGetStarted} >Get Started</button>
-              <button className="home-hero-button2 button">Learn More →</button>
+              <button className="home-hero-button2 button">  
+              <a href="#common-questions" className="home-hero-button2-link">Learn More →</a>
+              </button>
             </div>
           </div>
         </div>
@@ -156,7 +158,7 @@ const Home = (props) => {
           </div>
         </div>
       </div>
-      <div className="home-faq">
+      <div className="home-faq" id="common-questions">
         <div className="home-faq-container">
           <div className="home-faq1">
             <div className="home-container5">

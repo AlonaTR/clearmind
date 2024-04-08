@@ -10,12 +10,16 @@ from django.conf.urls.static import static
 router = routers.DefaultRouter()
 router.register(r'meditation', MeditationDataView)
 router.register(r'affirmation', AffirmationDataView)
+router.register(r'breathing', BreathingDataView)
+router.register(r'test-questions', TestQuestionView)
 router.register(r'data', AllDataView)
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),   
     path('home',views.main, name ='main'),
+    path('allitems',views.main, name ='main'),
+    path('test',views.main, name ='main'),
     path('onetype/<str:typename>',views.onetype_view, name ='onetype'),
     path('item/<int:itemid>',views.main, name ='oneitem'),
     path('api/', include(router.urls)),

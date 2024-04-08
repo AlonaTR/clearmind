@@ -23,3 +23,20 @@ class Data(models.Model):
 
     def __str__(self):
         return self.name
+
+from django.db import models
+
+class TestQuestion(models.Model):
+    question_text = models.CharField(max_length=255)
+    answer_choice_1 = models.CharField(max_length=255)
+    answer_choice_1_points = models.IntegerField(default=0)
+    answer_choice_2 = models.CharField(max_length=255)
+    answer_choice_2_points = models.IntegerField(default=0)
+    answer_choice_3 = models.CharField(max_length=255)
+    answer_choice_3_points = models.IntegerField(default=0)
+    answer_choice_4 = models.CharField(max_length=255)
+    answer_choice_4_points = models.IntegerField(default=0)
+
+    def __str__(self):
+        return self.question_text
+

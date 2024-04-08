@@ -1,4 +1,6 @@
-import React from 'react'
+
+import React, { useState, useEffect } from 'react'
+import axios from 'axios'
 import { useHistory } from 'react-router-dom'
 import { Helmet } from 'react-helmet'
 
@@ -7,15 +9,53 @@ import './allitems.css'
 
 const Allitems = (props) => {
   const history = useHistory(); // Створіть об'єкт history
+  const [meditations, setMeditations] = useState([]);
+  const [affirmations, setAffirmations] = useState([]);
+  const [breathingExercises, setBreathingExercises] = useState([]);
+
 
   const handleHome = () => {
-    history.push('/'); // Перейдіть на URL /allitems при кліку на кнопку "Get Started"
+    history.push('/home'); 
   };
+
+  useEffect(() => {
+    const fetchMeditations = async () => {
+      try {
+        const response = await axios.get(`/api/meditation`);
+        setMeditations(response.data);
+      } catch (error) {
+        console.error('Error fetching meditations:', error);
+      }
+    };
+
+    const fetchAffirmations = async () => {
+      try {
+        const response = await axios.get(`/api/affirmation`);
+        setAffirmations(response.data);
+      } catch (error) {
+        console.error('Error fetching affirmations:', error);
+      }
+    };
+
+    const fetchBreathingExercises = async () => {
+      try {
+        const response = await axios.get(`/api/breathing`); 
+        setBreathingExercises(response.data);
+      } catch (error) {
+        console.error('Error fetching breathing exercises:', error);
+      }
+    };
+
+    fetchMeditations();
+    fetchAffirmations();
+    fetchBreathingExercises();
+  }, []);
+
   return (
     <div className="allitems-container">
       <Helmet>
-        <title>Allitems - Loyal Cooked Shark</title>
-        <meta property="og:title" content="Allitems - Loyal Cooked Shark" />
+        <title>Clear mind</title>
+        <meta property="og:title" content="Clear mind" />
       </Helmet>
       <div className="allitems-hero">
         <button className="allitems-hero-button1 button">Log in</button>
@@ -39,39 +79,14 @@ const Allitems = (props) => {
               <br></br>
             </h2>
             <div className="allitems-container2">
-              <ImageText
-                imageSrc="https://images.unsplash.com/photo-1592895792095-85fa785192a9?ixid=M3w5MTMyMXwwfDF8c2VhcmNofDEzfHxtZWRpdGF0aW9ufGVufDB8fHx8MTcwMzQ0ODUxMnww&amp;ixlib=rb-4.0.3&amp;w=1400"
-                imageSrc1="https://images.unsplash.com/photo-1592895792095-85fa785192a9?ixid=M3w5MTMyMXwwfDF8c2VhcmNofDEzfHxtZWRpdGF0aW9ufGVufDB8fHx8MTcwMzQ0ODUxMnww&amp;ixlib=rb-4.0.3&amp;w=1500"
-                rootClassName="image-text-root-class-name8"
-              ></ImageText>
-              <ImageText
-                imageSrc1="https://images.unsplash.com/photo-1508583732154-e9ff899f8534?ixid=M3w5MTMyMXwwfDF8c2VhcmNofDE0fHxtZWRpdGF0aW9ufGVufDB8fHx8MTcwMzQ0ODUxMnww&amp;ixlib=rb-4.0.3&amp;w=1500"
-                rootClassName="image-text-root-class-name9"
-              ></ImageText>
-              <ImageText
-                imageSrc1="https://images.unsplash.com/photo-1593811167562-9cef47bfc4d7?ixid=M3w5MTMyMXwwfDF8c2VhcmNofDJ8fG1lZGl0YXRpb258ZW58MHx8fHwxNzAzNDQ4NTEyfDA&amp;ixlib=rb-4.0.3&amp;w=1500"
-                rootClassName="image-text-root-class-name10"
-              ></ImageText>
-              <ImageText
-                imageSrc1="https://images.unsplash.com/photo-1474418397713-7ede21d49118?ixid=M3w5MTMyMXwwfDF8c2VhcmNofDN8fG1lZGl0YXRpb258ZW58MHx8fHwxNzAzNDQ4NTEyfDA&amp;ixlib=rb-4.0.3&amp;w=1500"
-                rootClassName="image-text-root-class-name11"
-              ></ImageText>
-              <ImageText
-                imageSrc1="https://images.unsplash.com/photo-1536623975707-c4b3b2af565d?ixid=M3w5MTMyMXwwfDF8c2VhcmNofDR8fG1lZGl0YXRpb258ZW58MHx8fHwxNzAzNDQ4NTEyfDA&amp;ixlib=rb-4.0.3&amp;w=1500"
-                rootClassName="image-text-root-class-name12"
-              ></ImageText>
-              <ImageText
-                imageSrc1="https://images.unsplash.com/photo-1512438248247-f0f2a5a8b7f0?ixid=M3w5MTMyMXwwfDF8c2VhcmNofDV8fG1lZGl0YXRpb258ZW58MHx8fHwxNzAzNDQ4NTEyfDA&amp;ixlib=rb-4.0.3&amp;w=1500"
-                rootClassName="image-text-root-class-name13"
-              ></ImageText>
-              <ImageText
-                imageSrc1="https://images.unsplash.com/photo-1489659639091-8b687bc4386e?ixid=M3w5MTMyMXwwfDF8c2VhcmNofDE2fHxtZWRpdGF0aW9ufGVufDB8fHx8MTcwMzQ0ODUxMnww&amp;ixlib=rb-4.0.3&amp;w=1500"
-                rootClassName="image-text-root-class-name14"
-              ></ImageText>
-              <ImageText
-                imageSrc1="https://images.unsplash.com/photo-1554244933-d876deb6b2ff?ixid=M3w5MTMyMXwwfDF8c2VhcmNofDE1fHxtZWRpdGF0aW9ufGVufDB8fHx8MTcwMzQ0ODUxMnww&amp;ixlib=rb-4.0.3&amp;w=1500"
-                rootClassName="image-text-root-class-name15"
-              ></ImageText>
+              {meditations.map(item => (
+                <ImageText
+                  key={item.id}
+                  imageSrc1={item.image}
+                  heading={item.name}
+                  rootClassName={`image-text-root-class-name${item.id}`}
+                />
+              ))}
             </div>
           </div>
           <div className="allitems-affirmations">
@@ -80,39 +95,14 @@ const Allitems = (props) => {
               <br></br>
             </h2>
             <div className="allitems-container3">
-              <ImageText
-                imageSrc="https://images.unsplash.com/photo-1592895792095-85fa785192a9?ixid=M3w5MTMyMXwwfDF8c2VhcmNofDEzfHxtZWRpdGF0aW9ufGVufDB8fHx8MTcwMzQ0ODUxMnww&amp;ixlib=rb-4.0.3&amp;w=1400"
-                imageSrc1="https://images.unsplash.com/photo-1592895792095-85fa785192a9?ixid=M3w5MTMyMXwwfDF8c2VhcmNofDEzfHxtZWRpdGF0aW9ufGVufDB8fHx8MTcwMzQ0ODUxMnww&amp;ixlib=rb-4.0.3&amp;w=1500"
-                rootClassName="image-text-root-class-name16"
-              ></ImageText>
-              <ImageText
-                imageSrc1="https://images.unsplash.com/photo-1508583732154-e9ff899f8534?ixid=M3w5MTMyMXwwfDF8c2VhcmNofDE0fHxtZWRpdGF0aW9ufGVufDB8fHx8MTcwMzQ0ODUxMnww&amp;ixlib=rb-4.0.3&amp;w=1500"
-                rootClassName="image-text-root-class-name17"
-              ></ImageText>
-              <ImageText
-                imageSrc1="https://images.unsplash.com/photo-1593811167562-9cef47bfc4d7?ixid=M3w5MTMyMXwwfDF8c2VhcmNofDJ8fG1lZGl0YXRpb258ZW58MHx8fHwxNzAzNDQ4NTEyfDA&amp;ixlib=rb-4.0.3&amp;w=1500"
-                rootClassName="image-text-root-class-name18"
-              ></ImageText>
-              <ImageText
-                imageSrc1="https://images.unsplash.com/photo-1474418397713-7ede21d49118?ixid=M3w5MTMyMXwwfDF8c2VhcmNofDN8fG1lZGl0YXRpb258ZW58MHx8fHwxNzAzNDQ4NTEyfDA&amp;ixlib=rb-4.0.3&amp;w=1500"
-                rootClassName="image-text-root-class-name19"
-              ></ImageText>
-              <ImageText
-                imageSrc1="https://images.unsplash.com/photo-1536623975707-c4b3b2af565d?ixid=M3w5MTMyMXwwfDF8c2VhcmNofDR8fG1lZGl0YXRpb258ZW58MHx8fHwxNzAzNDQ4NTEyfDA&amp;ixlib=rb-4.0.3&amp;w=1500"
-                rootClassName="image-text-root-class-name20"
-              ></ImageText>
-              <ImageText
-                imageSrc1="https://images.unsplash.com/photo-1512438248247-f0f2a5a8b7f0?ixid=M3w5MTMyMXwwfDF8c2VhcmNofDV8fG1lZGl0YXRpb258ZW58MHx8fHwxNzAzNDQ4NTEyfDA&amp;ixlib=rb-4.0.3&amp;w=1500"
-                rootClassName="image-text-root-class-name21"
-              ></ImageText>
-              <ImageText
-                imageSrc1="https://images.unsplash.com/photo-1489659639091-8b687bc4386e?ixid=M3w5MTMyMXwwfDF8c2VhcmNofDE2fHxtZWRpdGF0aW9ufGVufDB8fHx8MTcwMzQ0ODUxMnww&amp;ixlib=rb-4.0.3&amp;w=1500"
-                rootClassName="image-text-root-class-name22"
-              ></ImageText>
-              <ImageText
-                imageSrc1="https://images.unsplash.com/photo-1554244933-d876deb6b2ff?ixid=M3w5MTMyMXwwfDF8c2VhcmNofDE1fHxtZWRpdGF0aW9ufGVufDB8fHx8MTcwMzQ0ODUxMnww&amp;ixlib=rb-4.0.3&amp;w=1500"
-                rootClassName="image-text-root-class-name23"
-              ></ImageText>
+              {affirmations.map(item => (
+                <ImageText
+                  key={item.id}
+                  imageSrc1={item.image}
+                  heading={item.name}
+                  rootClassName={`image-text-root-class-name${item.id}`}
+                />
+              ))}
             </div>
           </div>
           <div className="allitems-breathing-exercises">
@@ -121,39 +111,14 @@ const Allitems = (props) => {
               <br></br>
             </h2>
             <div className="allitems-container4">
-              <ImageText
-                imageSrc="https://images.unsplash.com/photo-1592895792095-85fa785192a9?ixid=M3w5MTMyMXwwfDF8c2VhcmNofDEzfHxtZWRpdGF0aW9ufGVufDB8fHx8MTcwMzQ0ODUxMnww&amp;ixlib=rb-4.0.3&amp;w=1400"
-                imageSrc1="https://images.unsplash.com/photo-1592895792095-85fa785192a9?ixid=M3w5MTMyMXwwfDF8c2VhcmNofDEzfHxtZWRpdGF0aW9ufGVufDB8fHx8MTcwMzQ0ODUxMnww&amp;ixlib=rb-4.0.3&amp;w=1500"
-                rootClassName="image-text-root-class-name24"
-              ></ImageText>
-              <ImageText
-                imageSrc1="https://images.unsplash.com/photo-1508583732154-e9ff899f8534?ixid=M3w5MTMyMXwwfDF8c2VhcmNofDE0fHxtZWRpdGF0aW9ufGVufDB8fHx8MTcwMzQ0ODUxMnww&amp;ixlib=rb-4.0.3&amp;w=1500"
-                rootClassName="image-text-root-class-name25"
-              ></ImageText>
-              <ImageText
-                imageSrc1="https://images.unsplash.com/photo-1593811167562-9cef47bfc4d7?ixid=M3w5MTMyMXwwfDF8c2VhcmNofDJ8fG1lZGl0YXRpb258ZW58MHx8fHwxNzAzNDQ4NTEyfDA&amp;ixlib=rb-4.0.3&amp;w=1500"
-                rootClassName="image-text-root-class-name26"
-              ></ImageText>
-              <ImageText
-                imageSrc1="https://images.unsplash.com/photo-1474418397713-7ede21d49118?ixid=M3w5MTMyMXwwfDF8c2VhcmNofDN8fG1lZGl0YXRpb258ZW58MHx8fHwxNzAzNDQ4NTEyfDA&amp;ixlib=rb-4.0.3&amp;w=1500"
-                rootClassName="image-text-root-class-name27"
-              ></ImageText>
-              <ImageText
-                imageSrc1="https://images.unsplash.com/photo-1536623975707-c4b3b2af565d?ixid=M3w5MTMyMXwwfDF8c2VhcmNofDR8fG1lZGl0YXRpb258ZW58MHx8fHwxNzAzNDQ4NTEyfDA&amp;ixlib=rb-4.0.3&amp;w=1500"
-                rootClassName="image-text-root-class-name28"
-              ></ImageText>
-              <ImageText
-                imageSrc1="https://images.unsplash.com/photo-1512438248247-f0f2a5a8b7f0?ixid=M3w5MTMyMXwwfDF8c2VhcmNofDV8fG1lZGl0YXRpb258ZW58MHx8fHwxNzAzNDQ4NTEyfDA&amp;ixlib=rb-4.0.3&amp;w=1500"
-                rootClassName="image-text-root-class-name29"
-              ></ImageText>
-              <ImageText
-                imageSrc1="https://images.unsplash.com/photo-1489659639091-8b687bc4386e?ixid=M3w5MTMyMXwwfDF8c2VhcmNofDE2fHxtZWRpdGF0aW9ufGVufDB8fHx8MTcwMzQ0ODUxMnww&amp;ixlib=rb-4.0.3&amp;w=1500"
-                rootClassName="image-text-root-class-name30"
-              ></ImageText>
-              <ImageText
-                imageSrc1="https://images.unsplash.com/photo-1554244933-d876deb6b2ff?ixid=M3w5MTMyMXwwfDF8c2VhcmNofDE1fHxtZWRpdGF0aW9ufGVufDB8fHx8MTcwMzQ0ODUxMnww&amp;ixlib=rb-4.0.3&amp;w=1500"
-                rootClassName="image-text-root-class-name31"
-              ></ImageText>
+              {breathingExercises.map(item => (
+                <ImageText
+                  key={item.id}
+                  imageSrc1={item.image}
+                  heading={item.name}
+                  rootClassName={`image-text-root-class-name${item.id}`}
+                />
+              ))}
             </div>
           </div>
         </div>
