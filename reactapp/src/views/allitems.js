@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
-import { useHistory } from 'react-router-dom'
+import { useHistory, Link  } from 'react-router-dom'
 import { Helmet } from 'react-helmet'
 
 import ImageText from '../components/image-text'
@@ -79,13 +79,15 @@ const Allitems = (props) => {
               <br></br>
             </h2>
             <div className="allitems-container2">
-              {meditations.map(item => (
-                <ImageText
-                  key={item.id}
-                  imageSrc1={item.image}
-                  heading={item.name}
-                  rootClassName={`image-text-root-class-name${item.id}`}
-                />
+              {meditations.slice(0,6).map(item => (
+                <Link to={`/item/${item.id}`} key={item.id}>
+                  <ImageText
+                    key={item.id}
+                    imageSrc1={item.image}
+                    heading={item.name}
+                    rootClassName={`image-text-root-class-name${item.id}`}
+                  />
+                </Link>
               ))}
             </div>
           </div>
@@ -95,13 +97,15 @@ const Allitems = (props) => {
               <br></br>
             </h2>
             <div className="allitems-container3">
-              {affirmations.map(item => (
-                <ImageText
-                  key={item.id}
-                  imageSrc1={item.image}
-                  heading={item.name}
-                  rootClassName={`image-text-root-class-name${item.id}`}
-                />
+              {affirmations.slice(0,6).map(item => (
+                <Link to={`/item/${item.id}`} key={item.id}>
+                  <ImageText
+                    key={item.id}
+                    imageSrc1={item.image}
+                    heading={item.name}
+                    rootClassName={`image-text-root-class-name${item.id}`}
+                  />
+                </Link>
               ))}
             </div>
           </div>
@@ -111,13 +115,15 @@ const Allitems = (props) => {
               <br></br>
             </h2>
             <div className="allitems-container4">
-              {breathingExercises.map(item => (
-                <ImageText
-                  key={item.id}
-                  imageSrc1={item.image}
-                  heading={item.name}
-                  rootClassName={`image-text-root-class-name${item.id}`}
-                />
+              {breathingExercises.slice(0,6).map(item => (
+                <Link to={`/item/${item.id}`} key={item.id}>
+                  <ImageText
+                    key={item.id}
+                    imageSrc1={item.image}
+                    heading={item.name}
+                    rootClassName={`image-text-root-class-name${item.id}`}
+                  />
+                </Link>
               ))}
             </div>
           </div>

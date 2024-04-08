@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
+import { useHistory, Link } from 'react-router-dom'
 import { Helmet } from 'react-helmet'
 import ImageText from '../components/image-text'
 import './one-type.css'
@@ -8,6 +9,11 @@ import './one-type.css'
 const OneType = ({ match }) => {
   const { typename } = match.params;
   const [data, setData] = useState([]);
+  const history = useHistory(); 
+
+  const handleHome = () => {
+    history.push('/home'); 
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -26,7 +32,7 @@ const OneType = ({ match }) => {
   return (
     <div className="one-type-container">
       <Helmet>
-        <title>OneType - Loyal Cooked Shark</title>
+        <title>{typename} - Clear Mind</title>
         <meta property="og:title" content="OneType - Loyal Cooked Shark" />
       </Helmet>
       <div className="one-type-hero">
@@ -38,7 +44,7 @@ const OneType = ({ match }) => {
               Discover the Power of Meditation
             </span>
             <div className="one-type-btn-group">
-              <button className="one-type-home-button button">Home</button>
+              <button className="one-type-home-button button" onClick={handleHome}>Home</button>
             </div>
           </div>
         </div>
@@ -51,13 +57,15 @@ const OneType = ({ match }) => {
               <br />
             </h2>
             <div className="one-type-container2">
-              {data.map(item => (
-                <ImageText
-                  key={item.id}
-                  imageSrc1={item.image}
-                  heading={item.name}
-                  rootClassName={`image-text-root-class-name${item.id}`}
-                />
+              {data.slice(0, 6).map(item => (
+                <Link to={`/item/${item.id}`} key={item.id}>
+                  <ImageText
+                    key={item.id}
+                    imageSrc1={item.image}
+                    heading={item.name}
+                    rootClassName={`image-text-root-class-name${item.id}`}
+                  />
+                </Link>
               ))}
             </div>
           </div>
