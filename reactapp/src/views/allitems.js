@@ -8,7 +8,7 @@ import ImageText from '../components/image-text'
 import './allitems.css'
 
 const Allitems = (props) => {
-  const history = useHistory(); // Створіть об'єкт history
+  const history = useHistory(); 
   const [meditations, setMeditations] = useState([]);
   const [affirmations, setAffirmations] = useState([]);
   const [breathingExercises, setBreathingExercises] = useState([]);

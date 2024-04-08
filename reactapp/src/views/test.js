@@ -7,6 +7,7 @@ import TestQuestion from '../components/test-question'
 import './test.css'
 
 const Test = (props) => {
+  const history = useHistory(); 
   const [questions, setQuestions] = useState([]);
   const [selectedAnswers, setSelectedAnswers] = useState({});
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
@@ -14,6 +15,9 @@ const Test = (props) => {
   const [showScore, setShowScore] = useState(false); // New state variable to control score display
   const isLastQuestion = currentQuestionIndex === questions.length - 1;
 
+  const handleHome = () => {
+    history.push('/home'); 
+  };
 
   useEffect(() => {
     // Fetch test questions from the backend
@@ -64,7 +68,7 @@ const Test = (props) => {
               Discover the Power of Meditation
             </span>
             <div className="test-btn-group">
-              <button className="test-home-button button">Home</button>
+              <button className="test-home-button button" onClick={handleHome}>Home</button>
             </div>
           </div>
         </div>
