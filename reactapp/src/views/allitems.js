@@ -79,7 +79,7 @@ const Allitems = (props) => {
               <br></br>
             </h2>
             <div className="allitems-container2">
-              {meditations.slice(0,6).map(item => (
+              {meditations.map(item => (
                 <Link to={`/item/${item.id}`} key={item.id}>
                   <ImageText
                     key={item.id}
@@ -97,7 +97,7 @@ const Allitems = (props) => {
               <br></br>
             </h2>
             <div className="allitems-container3">
-              {affirmations.slice(0,6).map(item => (
+              {affirmations.map(item => (
                 <Link to={`/item/${item.id}`} key={item.id}>
                   <ImageText
                     key={item.id}
@@ -115,7 +115,7 @@ const Allitems = (props) => {
               <br></br>
             </h2>
             <div className="allitems-container4">
-              {breathingExercises.slice(0,6).map(item => (
+              {breathingExercises.map(item => (
                 <Link to={`/item/${item.id}`} key={item.id}>
                   <ImageText
                     key={item.id}

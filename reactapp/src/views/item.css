@@ -168,9 +168,11 @@
   margin-bottom: var(--dl-space-space-twounits);
 }
 .item-video {
-  width: 50%;
-  height: 180px;
+  width: auto; 
+  height: auto; 
+  max-height: 500px;
   padding-right: var(--dl-space-space-unit);
+  padding-left: 20px;
 }
 .item-footer {
   flex: 0 0 auto;

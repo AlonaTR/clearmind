@@ -57,7 +57,7 @@ const OneType = ({ match }) => {
               <br />
             </h2>
             <div className="one-type-container2">
-              {data.slice(0, 6).map(item => (
+              {data.map(item => (
                 <Link to={`/item/${item.id}`} key={item.id}>
                   <ImageText
                     key={item.id}

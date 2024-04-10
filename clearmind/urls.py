@@ -13,6 +13,8 @@ router.register(r'affirmation', AffirmationDataView)
 router.register(r'breathing', BreathingDataView)
 router.register(r'test-questions', TestQuestionView)
 router.register(r'data', AllDataView)
+router.register(r'items', ItemDetailView, basename='item')
+
 
 
 urlpatterns = [
@@ -21,7 +23,7 @@ urlpatterns = [
     path('allitems',views.main, name ='main'),
     path('test',views.main, name ='main'),
     path('onetype/<str:typename>',views.onetype_view, name ='onetype'),
-    path('item/<int:itemid>',views.main, name ='oneitem'),
+    path('item/<int:itemid>',views.oneitem_view, name ='oneitem'),
     path('api/', include(router.urls)),
 ] 
 

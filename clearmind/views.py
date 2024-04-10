@@ -1,8 +1,17 @@
 from django.shortcuts import render
 from .models import *
 from rest_framework import viewsets
+
 from .models import Data, TestQuestion
 from .serializers import DataSerializer, TestQuestionSerializer
+
+class ItemDetailView(viewsets.ReadOnlyModelViewSet):
+    queryset = Data.objects.all()
+    serializer_class = DataSerializer
+
+    def get_object(self):
+        item_id = self.kwargs.get('pk')
+        return Data.objects.get(id=item_id)
 
 class MeditationDataView(viewsets.ModelViewSet):
     queryset = Data.objects.filter(type=Data.MEDITATION)  
@@ -30,5 +39,8 @@ def main(request):
 
 def onetype_view(request, typename):
     #data_objects = Data.objects.filter(type=Data.MEDITATION)
+    return render(request, 'index.html')
+
+def oneitem_view(request, itemid):
     return render(request, 'index.html')
 
