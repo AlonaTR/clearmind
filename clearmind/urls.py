@@ -16,15 +16,18 @@ router.register(r'data', AllDataView)
 router.register(r'items', ItemDetailView, basename='item')
 
 
-
 urlpatterns = [
     path('admin/', admin.site.urls),   
     path('home',views.main, name ='main'),
     path('allitems',views.main, name ='main'),
     path('test',views.main, name ='main'),
+    path('log-in',views.main, name ='login'),
+    path('account',views.main, name ='account'),
     path('onetype/<str:typename>',views.onetype_view, name ='onetype'),
     path('item/<int:itemid>',views.oneitem_view, name ='oneitem'),
     path('api/', include(router.urls)),
+    path('api/register/', register_view, name='api_register'),
+    path('api/login/', login_view, name='api_login'),
 ] 
 
 if settings.DEBUG:

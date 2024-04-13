@@ -1,30 +1,43 @@
-import React from 'react'
-
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
-
 import './log-in-form.css'
 
 const LogInForm = (props) => {
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+
+  const handleSubmit = (event) => {
+    event.preventDefault()
+    // Pass the email and password to the parent component's login handler
+    props.onLogin({ username: email, password: password })
+  }
   return (
-    <div className={`log-in-form-container ${props.rootClassName} `}>
+    <form className={`log-in-form-container ${props.rootClassName}`} onSubmit={handleSubmit}>
       <span className="log-in-form-text-email">{props.heroSubHeading}</span>
       <input
         type="text"
         placeholder="Email"
         className="log-in-form-input-email input"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
       />
       <span className="log-in-form-text-password">{props.heroSubHeading1}</span>
       <input
-        type="text"
+        type="password"
         placeholder="Password"
         className="log-in-form-input-password input"
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
       />
       <span className="log-in-form-hero-sub-heading">
         {props.heroSubHeading2}
       </span>
-    </div>
-  )
-}
+      <button type="submit" className="log-in-form-submit-button">
+        Log In
+      </button>
+    </form>
+  );
+};
 
 LogInForm.defaultProps = {
   textinputPlaceholder1: 'placeholder',

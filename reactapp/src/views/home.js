@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { useHistory, Link } from 'react-router-dom'
 import axios from 'axios'
 import { Helmet } from 'react-helmet'
-
+import LogInButton from '../components/log-in-button'
 import PhotoLogo from '../components/photo-logo'
 import FeatureCard from '../components/feature-card'
 import GalleryCard11 from '../components/gallery-card11'
@@ -30,6 +30,8 @@ const Home = (props) => {
   const handleGetStarted = () => {
     history.push('/allitems'); 
   };
+
+  
   const meditation_url = '/onetype/meditation';
   const affirmation_url = '/onetype/affirmation';
   const breathing_url = '/onetype/breathing';
@@ -44,7 +46,8 @@ const Home = (props) => {
         <meta property="og:title" content="Clear Mind" />
       </Helmet>
       <div className="home-hero">
-        <PhotoLogo rootClassName="photo-logo-root-class-name"></PhotoLogo>
+        {/* <PhotoLogo rootClassName="photo-logo-root-class-name"></PhotoLogo> */}
+        <LogInButton rootClassName="log-in-button-root-class-name"></LogInButton>
         <div className="home-hero1">
           <div className="home-container1">
             <h1 className="home-hero-heading heading1">Clear Mind</h1>

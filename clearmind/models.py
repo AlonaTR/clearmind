@@ -1,5 +1,6 @@
 from django.db import models
 from os.path import basename
+from django.utils.translation import gettext_lazy as _
 
 
 class Data(models.Model):
@@ -39,4 +40,5 @@ class TestQuestion(models.Model):
 
     def __str__(self):
         return self.question_text
+
 

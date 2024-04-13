@@ -4,64 +4,69 @@ import PropTypes from 'prop-types'
 
 import './register-form.css'
 
-const RegisterForm = (props) => {
+const RegisterForm = ({
+  onRegister,
+  onInputChange,
+  registerError,
+  rootClassName,
+  detailsImageAlt,
+  detailsImageSrc,
+  heroSubHeading31,
+  heroSubHeading24,
+  heroSubHeading3,
+  heroSubHeading23,
+  heroSubHeading,
+  heroSubHeading22,
+  heroSubHeading11,
+  heroSubHeading21,
+  heroSubHeading1,
+  heroSubHeading2,
+}) => {
+  console.log(registerError);
   return (
-    <div className={`register-form-container ${props.rootClassName} `}>
+    <form onSubmit={onRegister} className={`register-form-container ${rootClassName}`}>
       <img
-        alt={props.detailsImageAlt}
-        src={props.detailsImageSrc}
+        alt={detailsImageAlt}
+        src={detailsImageSrc}
         className="register-form-details-image"
       />
-      <span className="register-form-text-name">{props.heroSubHeading31}</span>
+      {/* ... other form fields ... */}
       <input
         type="text"
-        placeholder="Name"
-        className="register-form-input-name input"
+        name="username"
+        placeholder="Username"
+        onChange={onInputChange}
+        className="register-form-input-username input"
       />
-      <span className="register-form-error-name">{props.heroSubHeading24}</span>
-      <span className="register-form-text-surname">
-        {props.heroSubHeading3}
-      </span>
+      
       <input
-        type="text"
-        placeholder="Surname"
-        className="register-form-input-surname input"
-      />
-      <span className="register-form-error-surname">
-        {props.heroSubHeading23}
-      </span>
-      <span className="register-form-text-email">{props.heroSubHeading}</span>
-      <input
-        type="text"
+        type="email"
+        name="email"
         placeholder="Email"
+        onChange={onInputChange}
         className="register-form-input-email input"
       />
-      <span className="register-form-error-email">
-        {props.heroSubHeading22}
-      </span>
-      <span className="register-form-text-password">
-        {props.heroSubHeading11}
-      </span>
       <input
-        type="text"
+        type="password"
+        name="password1"
         placeholder="Password"
+        onChange={onInputChange}
         className="register-form-input-password input"
       />
-      <span className="register-form-error-password">
-        {props.heroSubHeading21}
-      </span>
-      <span className="register-form-text-password2">
-        {props.heroSubHeading1}
-      </span>
       <input
-        type="text"
-        placeholder="Password"
+        type="password"
+        name="password2"
+        placeholder="Confirm Password"
+        onChange={onInputChange}
         className="register-form-input-password2 input"
       />
-      <span className="register-form-error-password2">
-        {props.heroSubHeading2}
-      </span>
-    </div>
+      {registerError && Object.keys(registerError).map((key) => (
+        <div key={key} className="register-form-error">
+          {registerError[key]}
+        </div>
+      ))}
+      <button type="submit" className="register-form-submit-button">Register</button>
+    </form>
   )
 }
 
