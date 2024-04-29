@@ -14,7 +14,7 @@ const LogInButton = (props) => {
   return (
     <div className={`log-in-button-container ${props.rootClassName} `}>
       <button className="log-in-button-hero-button1 button" onClick={handleLogIn}> 
-        {props.heroButton1}
+       Log in
       </button>
     </div>
   )

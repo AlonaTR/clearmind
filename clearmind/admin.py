@@ -3,3 +3,4 @@ from .models import *
 
 admin.site.register(Data)
 admin.site.register(TestQuestion)
+admin.site.register(UserActivity)

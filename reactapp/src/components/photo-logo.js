@@ -7,11 +7,11 @@ import './photo-logo.css'
 const PhotoLogo = (props) => {
   return (
     <div className={`photo-logo-container ${props.rootClassName} `}>
-      <img
+      {/* <img
         alt={props.detailsImageAlt}
         src={props.detailsImageSrc}
         className="photo-logo-details-image"
-      />
+      /> */}
       <button className="photo-logo-hero-button2 button">
         {props.heroButton2}
       </button>

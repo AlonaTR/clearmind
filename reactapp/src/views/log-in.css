@@ -67,6 +67,15 @@
   align-items: center;
   flex-direction: row;
 }
+
+.log-in-btn-group2 {
+  gap: var(--dl-space-space-oneandhalfunits);
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  padding-top: 50px;
+}
+
 .log-in-home-button {
   color: var(--dl-color-gray-white);
   font-size: 18px;
@@ -161,6 +170,9 @@
     margin-bottom: var(--dl-space-space-unit);
   }
   .log-in-btn-group {
+    flex-direction: column;
+  }
+  .log-in-btn-group2 {
     flex-direction: column;
   }
   .log-in-hero-button2 {

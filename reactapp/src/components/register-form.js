@@ -25,18 +25,18 @@ const RegisterForm = ({
   console.log(registerError);
   return (
     <form onSubmit={onRegister} className={`register-form-container ${rootClassName}`}>
-      <img
+      {/* <img
         alt={detailsImageAlt}
         src={detailsImageSrc}
         className="register-form-details-image"
       />
-      {/* ... other form fields ... */}
+       */}
       <input
         type="text"
         name="username"
         placeholder="Username"
         onChange={onInputChange}
-        className="register-form-input-username input"
+        className="register-form-input-username register-form-input  input"
       />
       
       <input
@@ -44,28 +44,30 @@ const RegisterForm = ({
         name="email"
         placeholder="Email"
         onChange={onInputChange}
-        className="register-form-input-email input"
+        className="register-form-input-email register-form-input input"
       />
       <input
         type="password"
         name="password1"
         placeholder="Password"
         onChange={onInputChange}
-        className="register-form-input-password input"
+        className="register-form-input-password  register-form-input input"
       />
       <input
         type="password"
         name="password2"
         placeholder="Confirm Password"
         onChange={onInputChange}
-        className="register-form-input-password2 input"
+        className="register-form-input-password2 register-form-input input"
       />
       {registerError && Object.keys(registerError).map((key) => (
         <div key={key} className="register-form-error">
           {registerError[key]}
         </div>
       ))}
-      <button type="submit" className="register-form-submit-button">Register</button>
+      <div className="log-in-btn-group2">
+      <button type="submit" className="log-in-home-button button">Register</button>
+      </div>
     </form>
   )
 }

@@ -1,6 +1,8 @@
 from django.db import models
 from os.path import basename
 from django.utils.translation import gettext_lazy as _
+from django.contrib.auth.models import User
+
 
 
 class Data(models.Model):
@@ -40,5 +42,24 @@ class TestQuestion(models.Model):
 
     def __str__(self):
         return self.question_text
+
+
+class UserActivity(models.Model):
+    MEDITATION = 'Meditation'
+    AFFIRMATION = 'Affirmation'
+    BREATHING = 'Breathing'
+
+    TYPE_CHOICES = [
+        (MEDITATION, 'meditation'),
+        (AFFIRMATION, 'affirmation'),
+        (BREATHING, 'breathing'),
+    ]
+
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    date = models.DateField()
+    type = models.CharField(max_length=100, choices=TYPE_CHOICES, default=MEDITATION )
+    def __str__(self):
+        return f"{self.user.username} - {self.date}"
+
 
 

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-
+import { useHistory, Link  } from 'react-router-dom'
 import { Helmet } from 'react-helmet'
 import InfoAccount from '../components/info-account'
 import RegisterForm from '../components/register-form'
@@ -7,9 +7,17 @@ import LogInForm from '../components/log-in-form'
 import './log-in.css'
 
 const LogIn = (props) => {
+  const history = useHistory();
+
+  const handleHome = () => {
+    history.push('/home'); 
+  };
+
   const [isLoggedIn, setIsLoggedIn] = useState(false)
   const [userData, setUserData] = useState(null)
   const [showRegisterForm, setShowRegisterForm] = useState(false);
+  const [loginError, setLoginError] = useState('');
+
 
    // Add state to handle form inputs and errors
    const [registerInfo, setRegisterInfo] = useState({
@@ -52,15 +60,13 @@ const LogIn = (props) => {
         }),
       });
       const data = await response.json();
-      console.log('Login response:', data); 
       if (response.ok && data.status === 'success' && data.user) {
         localStorage.setItem('user', JSON.stringify(data.user)); // Store user data in localStorage
         setIsLoggedIn(true);
         setUserData(data.user);
-        console.log('Redirecting to account page');
         props.history.push('/account'); // Redirect to account page
       } else {
-        // Handle login error (e.g., display a message to the user)
+        setLoginError('Wrong email or password');
       }
     } catch (error) {
       console.error('Login error:', error);
@@ -119,7 +125,14 @@ const LogIn = (props) => {
       <div className="log-in-hero">
         <div className="log-in-hero1">
           <div className="log-in-container1">
-            <h1 className="log-in-hero-heading heading1">Clear Mind</h1>
+            <h1 className="log-in-hero-heading heading1">
+              <Link to='/home' className="log-in-hero-heading-link">
+                Clear Mind
+              </Link>
+            </h1>
+            <span className="allitems-hero-sub-heading">
+              Discover the Power of Meditation
+            </span>
             <div className="log-in-container2">
             {isLoggedIn && userData ? (
               <InfoAccount
@@ -136,22 +149,28 @@ const LogIn = (props) => {
               />
             ) : (
               <LogInForm
-              rootClassName="log-in-form-root-class-name"
-              onLogin={handleLogin} 
+                rootClassName="log-in-form-root-class-name"
+                onLogin={handleLogin} 
+                heroSubHeading2={loginError}
               />
             )}
             </div>
             <div className="log-in-btn-group">
-              <button
-                className="log-in-home-button button"
-                onClick={() => setShowRegisterForm(false)}>
-                Log In
-              </button>
-              <button
-                className="log-in-hero-button2 button"
-                onClick={() => setShowRegisterForm(true)}>
-                Register →
-              </button>
+              
+              {!showRegisterForm && (
+                <button
+                  className="log-in-hero-button2 button"
+                  onClick={() => setShowRegisterForm(true)}>
+                  Register →
+                </button>
+              )}
+              {showRegisterForm && (
+                <button
+                  className="log-in-hero-button2 button"
+                  onClick={() => setShowRegisterForm(false)}>
+                  Log In
+                </button>
+              )}
             </div>
           </div>
         </div>

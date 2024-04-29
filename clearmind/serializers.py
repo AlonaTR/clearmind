@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Data, TestQuestion
+from .models import *
 
 class DataSerializer(serializers.ModelSerializer):
     class Meta:
@@ -9,4 +9,9 @@ class DataSerializer(serializers.ModelSerializer):
 class TestQuestionSerializer(serializers.ModelSerializer):
     class Meta:
         model = TestQuestion
+        fields = '__all__'
+
+class UserActivitySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = UserActivity
         fields = '__all__'

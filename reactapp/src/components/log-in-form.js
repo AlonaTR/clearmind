@@ -32,9 +32,12 @@ const LogInForm = (props) => {
       <span className="log-in-form-hero-sub-heading">
         {props.heroSubHeading2}
       </span>
-      <button type="submit" className="log-in-form-submit-button">
-        Log In
-      </button>
+      
+      <div className="log-in-btn-group2">
+        <button type="submit" className="log-in-home-button button">
+          Log In
+        </button>
+      </div>
     </form>
   );
 };
@@ -43,7 +46,7 @@ LogInForm.defaultProps = {
   textinputPlaceholder1: 'placeholder',
   heroButton2: 'Learn More →',
   heroSubHeading: 'Input Email',
-  heroSubHeading2: 'Wrong email or password',
+  heroSubHeading2: '',
   heroSubHeading1: 'Input Password',
   textinputPlaceholder: 'placeholder',
   rootClassName: '',

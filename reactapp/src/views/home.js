@@ -12,8 +12,24 @@ import './home.css'
 const Home = (props) => {
   const history = useHistory(); 
   const [data, setData] = useState([]);
+  const [userData, setUserData] = useState(null);
+
+  const handleLogIn = () => {
+    history.push('/log-in'); 
+  };
+  const handleAccount = () => {
+    history.push('/account'); 
+  };
+
+  
 
   useEffect(() => {
+    const user = localStorage.getItem('user');
+    if (user) {
+      const parsedUser = JSON.parse(user);
+      setUserData(parsedUser);
+    }
+
     const fetchData = async () => {
       try {
         const response = await axios.get(`/api/data`); 
@@ -46,8 +62,17 @@ const Home = (props) => {
         <meta property="og:title" content="Clear Mind" />
       </Helmet>
       <div className="home-hero">
-        {/* <PhotoLogo rootClassName="photo-logo-root-class-name"></PhotoLogo> */}
-        <LogInButton rootClassName="log-in-button-root-class-name"></LogInButton>
+      <div className="log-in-button-container log-in-button-root-class-name">
+        {userData ? (
+          <button className="log-in-button-hero-button1 button" onClick={handleAccount}>
+            My Profile
+          </button>
+        ) : (
+          <button className="log-in-button-hero-button1 button" onClick={handleLogIn}>
+            Log in
+          </button>
+        )}
+      </div>
         <div className="home-hero1">
           <div className="home-container1">
             <h1 className="home-hero-heading heading1">Clear Mind</h1>

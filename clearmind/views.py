@@ -10,6 +10,8 @@ from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.models import User
 import json
+from django.db.models import Count, Case, When, IntegerField
+
 
 class CustomUserCreationForm(UserCreationForm):
     email = forms.EmailField(required=True)
@@ -48,6 +50,69 @@ def login_view(request):
             return JsonResponse({'status': 'success', 'user': {'id': user.id, 'username': user.username, 'email': user.email}})  
         else:
             return JsonResponse({'status': 'error', 'message': 'Invalid credentials'})
+
+
+def user_activity_meditation(request):
+    user_activities = UserActivity.objects.filter(user=request.user, type=UserActivity.MEDITATION)
+    if not user_activities.exists():
+        return JsonResponse([{'type': UserActivity.MEDITATION, 'count': 0}], safe=False)
+    else:
+        activities_grouped_by_type = user_activities.values('type').annotate(
+            count=Count('type')
+        )
+        activity_data = list(activities_grouped_by_type)
+        return JsonResponse(activity_data, safe=False)
+
+def user_activity_affirmation(request):
+    user_activities = UserActivity.objects.filter(user=request.user, type=UserActivity.AFFIRMATION)
+    if not user_activities.exists():
+        return JsonResponse([{'type': UserActivity.AFFIRMATION, 'count': 0}], safe=False)
+    else:
+        activities_grouped_by_type = user_activities.values('type').annotate(
+            count=Count('type')
+        )
+        activity_data = list(activities_grouped_by_type)
+        return JsonResponse(activity_data, safe=False)
+
+
+def user_activity_breathing(request):
+    user_activities = UserActivity.objects.filter(user=request.user, type=UserActivity.BREATHING)
+    if not user_activities.exists():
+        return JsonResponse([{'type': UserActivity.BREATHING, 'count': 0}], safe=False)
+    else:
+        activities_grouped_by_type = user_activities.values('type').annotate(
+            count=Count('type')
+        )
+        activity_data = list(activities_grouped_by_type)
+        return JsonResponse(activity_data, safe=False)
+
+
+def user_activity_calendar(request):
+    user_activities = UserActivity.objects.filter(user=request.user)
+    activities_grouped_by_date = user_activities.values('date').annotate(
+        count=Count('date'),
+        level=Case(
+            When(count=1, then=1),
+            When(count__range=(2, 3), then=2),
+            When(count__gte=4, then=3),
+            default=0,
+            output_field=IntegerField(),
+        )
+    )
+    activity_data = list(activities_grouped_by_date)
+    return JsonResponse(activity_data, safe=False)
+
+@csrf_exempt
+def record_activity_view(request):
+    if request.method == 'POST':
+        user = request.user
+        if user.is_authenticated:
+            data = json.loads(request.body)
+            date = data.get('date')
+            type = data.get('type')
+            UserActivity.objects.create(user=user, date=date, type=type)
+            return JsonResponse({'status': 'success'}, status=201)
+        return JsonResponse({'status': 'error', 'message': 'User is not authenticated'}, status=401)
 
 
 

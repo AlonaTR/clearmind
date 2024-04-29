@@ -9,6 +9,26 @@ const Item = (props) => {
   const { itemid } = useParams(); // Retrieve the itemid from the URL
   const [item, setItem] = useState(null);
   const [loading, setLoading] = useState(true);
+  const user = localStorage.getItem('user');
+  const [activityRecorded, setActivityRecorded] = useState(false); // Add a new state variable
+
+
+  const getCurrentDate=() => {
+    const today = new Date();
+    const year = today.getFullYear();
+    let month = today.getMonth() + 1; // Month is zero-based
+    let day = today.getDate();
+
+    // Pad month and day with leading zeros if needed
+    if (month < 10) {
+      month = '0' + month;
+    }
+    if (day < 10) {
+      day = '0' + day;
+    }
+    console.log(`${year}-${month}-${day}`)
+    return `${year}-${month}-${day}`;
+  };
 
   useEffect(() => {
     const fetchItemData = async () => {
@@ -23,7 +43,47 @@ const Item = (props) => {
     };
 
     fetchItemData();
-  }, [itemid]);
+
+    // Function to handle recording user activity
+    const recordUserActivity = async () => {
+      if (!activityRecorded) { 
+        try {
+          await axios.post('/api/record-activity/', {
+            user: user,
+            type: item.type,
+            date: getCurrentDate()
+          });
+          setActivityRecorded(true); 
+        } catch (error) {
+          console.error('Error recording user activity:', error);
+        }
+      }
+    };
+
+    // Function to check if the video has been watched halfway
+    const handleTimeUpdate = (event) => {
+      const videoElement = event.target;
+      const halfWay = videoElement.duration / 2;
+      if (videoElement.currentTime >= halfWay && !activityRecorded) {
+        videoElement.removeEventListener('timeupdate', handleTimeUpdate);
+        recordUserActivity(); // Call the function to record user activity
+      }
+    };
+
+    // Add event listener to the video element
+    const videoElement = document.querySelector('.item-video');
+    if (videoElement) {
+      videoElement.addEventListener('timeupdate', handleTimeUpdate);
+    }
+
+    // Cleanup function to remove the event listener
+    return () => {
+      if (videoElement) {
+        videoElement.removeEventListener('timeupdate', handleTimeUpdate);
+      }
+    };
+
+  }, [itemid, item, activityRecorded]);
 
 
   const handleHome = () => {

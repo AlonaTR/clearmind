@@ -23,11 +23,19 @@ urlpatterns = [
     path('test',views.main, name ='main'),
     path('log-in',views.main, name ='login'),
     path('account',views.main, name ='account'),
+    path('activity',views.main, name ='activity'),
     path('onetype/<str:typename>',views.onetype_view, name ='onetype'),
     path('item/<int:itemid>',views.oneitem_view, name ='oneitem'),
     path('api/', include(router.urls)),
     path('api/register/', register_view, name='api_register'),
     path('api/login/', login_view, name='api_login'),
+    path('api/user-activity-calendar', user_activity_calendar, name='api_user_activity_calendar'),
+    path('api/user-activity-meditation', user_activity_meditation, name='api_user_activity_meditation'),
+    path('api/user-activity-affirmation', user_activity_affirmation, name='api_user_activity_affirmation'),
+    path('api/user-activity-breathing', user_activity_breathing, name='api_user_activity_breathing'),
+    path('api/record-activity/', views.record_activity_view, name='api_record_activity'),
+
+
 ] 
 
 if settings.DEBUG:

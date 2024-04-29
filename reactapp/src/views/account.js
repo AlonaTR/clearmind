@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react'
-
+import { useHistory, Link  } from 'react-router-dom'
 import { Helmet } from 'react-helmet'
 
 import InfoAccount from '../components/info-account'
 import './account.css'
 
+
 const Account = (props) => {
   const [userData, setUserData] = useState(null);
+  const history = useHistory(); 
 
   useEffect(() => {
     const user = localStorage.getItem('user');
@@ -16,8 +18,11 @@ const Account = (props) => {
       const parsedUser = JSON.parse(user);
       setUserData(parsedUser);
       console.log('User data:', parsedUser); // Debugging statement
+    } else {
+      // If there's no user data in localStorage, redirect to the login page
+      history.push('/log-in');
     }
-  }, []);
+  }, [history]);
   
 
   // Function to handle user logout
@@ -38,14 +43,22 @@ const Account = (props) => {
       <div className="account-hero">
         <div className="account-hero1">
           <div className="account-container1">
-            <h1 className="account-hero-heading heading1">Clear Mind</h1>
+            <h1 className="log-in-hero-heading heading1">
+              <Link to='/home' className="log-in-hero-heading-link">
+                Clear Mind
+              </Link>
+            </h1>
             <div className="account-container2">
               {userData ? ( // Check if userData is not null
-                <InfoAccount 
-                  username={userData.username}
-                  email={userData.email}
-                />
+                <div className='info-account-container info-account-root-class-name'>
+                  <span className="info-account-text-name">Username:</span>
+                  <span className="info-account-text-name1">{userData.username}</span>
+                  <span className="info-account-text-email">Email:</span>
+                  <span className="info-account-text-email1">{userData.email}</span>
+      
+                </div>
               ) : (
+                
                 <p>Loading user data...</p> // Display a loading message or spinner
               )}
             </div>

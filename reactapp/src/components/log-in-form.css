@@ -38,6 +38,9 @@
   text-align: center;
   line-height: 1.6;
 }
+
+
+
 @media(max-width: 1200px) {
   .log-in-form-container {
     width: auto;
