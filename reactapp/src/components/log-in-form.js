@@ -3,23 +3,23 @@ import PropTypes from 'prop-types'
 import './log-in-form.css'
 
 const LogInForm = (props) => {
-  const [email, setEmail] = useState('')
+  const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
 
   const handleSubmit = (event) => {
     event.preventDefault()
-    // Pass the email and password to the parent component's login handler
-    props.onLogin({ username: email, password: password })
+    // Pass the username and password to the parent component's login handler
+    props.onLogin({ username: username, password: password })
   }
   return (
     <form className={`log-in-form-container ${props.rootClassName}`} onSubmit={handleSubmit}>
       <span className="log-in-form-text-email">{props.heroSubHeading}</span>
       <input
         type="text"
-        placeholder="Email"
+        placeholder="Username"
         className="log-in-form-input-email input"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
+        value={username}
+        onChange={(e) => setUsername(e.target.value)}
       />
       <span className="log-in-form-text-password">{props.heroSubHeading1}</span>
       <input
@@ -45,7 +45,7 @@ const LogInForm = (props) => {
 LogInForm.defaultProps = {
   textinputPlaceholder1: 'placeholder',
   heroButton2: 'Learn More →',
-  heroSubHeading: 'Input Email',
+  heroSubHeading: 'Input Username',
   heroSubHeading2: '',
   heroSubHeading1: 'Input Password',
   textinputPlaceholder: 'placeholder',

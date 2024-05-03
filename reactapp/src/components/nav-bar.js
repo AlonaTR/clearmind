@@ -1,11 +1,31 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 
+import { useHistory, Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 
 import NavigationLinks from './navigation-links'
 import './nav-bar.css'
 
 const NavBar = (props) => {
+  const history = useHistory(); 
+
+  const [isDisplayed, setIsDisplayed] = useState(false)
+  const handleLogIn = () => {
+    history.push('/log-in'); 
+  };
+
+  const [userData, setUserData] = useState(null);
+
+  useEffect(() => {
+    const user = localStorage.getItem('user');
+    console.log('User data from localStorage:', user); // Log the raw user data from localStorage
+
+    if (user) {
+      const parsedUser = JSON.parse(user);
+      setUserData(parsedUser);
+      console.log('User data:', parsedUser); // Debugging statement
+    }
+  }, []);
   return (
     <div className={`nav-bar-container ${props.rootClassName} `}>
       <header data-role="Header" className="nav-bar-header">
@@ -15,8 +35,11 @@ const NavBar = (props) => {
           className=""
         ></NavigationLinks>
         <div className="nav-bar-btn-group">
+        {userData ? ( // Check if userData is not null
           <div
             data-thq="thq-dropdown"
+            onMouseEnter={()=>setIsDisplayed(true)}
+            onMouseLeave={()=>setIsDisplayed(false)}
             className="nav-bar-thq-dropdown list-item"
           >
             <div
@@ -33,7 +56,9 @@ const NavBar = (props) => {
                 </svg>
               </div>
             </div>
-            <ul data-thq="thq-dropdown-list" className="nav-bar-dropdown-list">
+            <ul data-thq="thq-dropdown-list" className="nav-bar-dropdown-list" style={
+              {display:isDisplayed ? "flex" : "none"}
+            }>
               <li
                 data-thq="thq-dropdown"
                 className="nav-bar-dropdown list-item"
@@ -42,7 +67,7 @@ const NavBar = (props) => {
                   data-thq="thq-dropdown-toggle"
                   className="nav-bar-dropdown-toggle1"
                 >
-                  <span className="nav-bar-text2">Sub-menu Item</span>
+                  <a href="/account" className="nav-bar-text2">Account</a>
                 </div>
               </li>
               <li
@@ -53,23 +78,15 @@ const NavBar = (props) => {
                   data-thq="thq-dropdown-toggle"
                   className="nav-bar-dropdown-toggle2"
                 >
-                  <span className="nav-bar-text3">Sub-menu Item</span>
-                </div>
-              </li>
-              <li
-                data-thq="thq-dropdown"
-                className="nav-bar-dropdown2 list-item"
-              >
-                <div
-                  data-thq="thq-dropdown-toggle"
-                  className="nav-bar-dropdown-toggle3"
-                >
-                  <span className="nav-bar-text4">Sub-menu Item</span>
+                  <a href="/activity" className="nav-bar-text3">My activity</a>
                 </div>
               </li>
             </ul>
           </div>
-          <button className="nav-bar-login button">Login -&gt;</button>
+          ) : (
+            <button onClick={handleLogIn} className="nav-bar-login button">Login -&gt;</button>
+          )}
+          
         </div>
         <div data-role="BurgerMenu" className="nav-bar-burger-menu">
           <svg viewBox="0 0 1024 1024" className="nav-bar-icon02">
