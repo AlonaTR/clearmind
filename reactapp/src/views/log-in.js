@@ -5,6 +5,8 @@ import InfoAccount from '../components/info-account'
 import RegisterForm from '../components/register-form'
 import LogInForm from '../components/log-in-form'
 import './log-in.css'
+import NavBar from '../components/nav-bar'
+
 
 const LogIn = (props) => {
   const history = useHistory();
@@ -123,6 +125,7 @@ const LogIn = (props) => {
         <meta property="og:title" content="LogIn - Clear Mind" />
       </Helmet>
       <div className="log-in-hero">
+        <NavBar rootClassName="nav-bar-root-class-name"></NavBar>
         <div className="log-in-hero1">
           <div className="log-in-container1">
             <h1 className="log-in-hero-heading heading1">

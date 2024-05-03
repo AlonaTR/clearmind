@@ -4,6 +4,8 @@ import { useHistory, Link } from 'react-router-dom'
 import { Helmet } from 'react-helmet'
 import ImageText from '../components/image-text'
 import './one-type.css'
+import NavBar from '../components/nav-bar'
+
 
 
 const OneType = ({ match }) => {
@@ -36,16 +38,13 @@ const OneType = ({ match }) => {
         <meta property="og:title" content="OneType - Loyal Cooked Shark" />
       </Helmet>
       <div className="one-type-hero">
-        <button className="one-type-hero-button1 button">Log in</button>
+        <NavBar rootClassName="nav-bar-root-class-name"></NavBar>
         <div className="one-type-hero1">
           <div className="one-type-container1">
             <h1 className="one-type-hero-heading heading1">Clear Mind</h1>
             <span className="one-type-hero-sub-heading">
               Discover the Power of Meditation
             </span>
-            <div className="one-type-btn-group">
-              <button className="one-type-home-button button" onClick={handleHome}>Home</button>
-            </div>
           </div>
         </div>
       </div>

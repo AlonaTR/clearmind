@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import { useHistory } from 'react-router-dom'
 import { Helmet } from 'react-helmet'
-
+import NavBar from '../components/nav-bar'
 import TestQuestion from '../components/test-question'
 import './test.css'
 
@@ -60,16 +60,13 @@ const Test = (props) => {
         <meta property="og:title" content="Test - Clear Mind" />
       </Helmet>
       <div className="test-hero">
-        <button className="test-hero-button1 button">Log in</button>
+        <NavBar rootClassName="nav-bar-root-class-name"></NavBar>
         <div className="test-hero1">
           <div className="test-container1">
             <h1 className="test-hero-heading heading1">Clear Mind</h1>
             <span className="test-hero-sub-heading">
               Discover the Power of Meditation
             </span>
-            <div className="test-btn-group">
-              <button className="test-home-button button" onClick={handleHome}>Home</button>
-            </div>
           </div>
         </div>
       </div>

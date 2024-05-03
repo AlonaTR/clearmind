@@ -8,20 +8,14 @@ import FeatureCard from '../components/feature-card'
 import GalleryCard11 from '../components/gallery-card11'
 import Question from '../components/question'
 import './home.css'
+import NavBar from '../components/nav-bar'
+
 
 const Home = (props) => {
   const history = useHistory(); 
   const [data, setData] = useState([]);
   const [userData, setUserData] = useState(null);
 
-  const handleLogIn = () => {
-    history.push('/log-in'); 
-  };
-  const handleAccount = () => {
-    history.push('/account'); 
-  };
-
-  
 
   useEffect(() => {
     const user = localStorage.getItem('user');
@@ -63,15 +57,7 @@ const Home = (props) => {
       </Helmet>
       <div className="home-hero">
       <div className="log-in-button-container log-in-button-root-class-name">
-        {userData ? (
-          <button className="log-in-button-hero-button1 button" onClick={handleAccount}>
-            My Profile
-          </button>
-        ) : (
-          <button className="log-in-button-hero-button1 button" onClick={handleLogIn}>
-            Log in
-          </button>
-        )}
+        <NavBar rootClassName="nav-bar-root-class-name"></NavBar>
       </div>
         <div className="home-hero1">
           <div className="home-container1">

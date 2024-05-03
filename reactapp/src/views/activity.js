@@ -4,6 +4,7 @@ import { Helmet } from 'react-helmet'
 import axios from 'axios';
 import './activity.css'
 import ActivityCalendar from 'react-activity-calendar'
+import NavBar from '../components/nav-bar'
 
 
 
@@ -83,20 +84,17 @@ const Activity = (props) => {
     <>
       <div className="myactivity-container">
         <Helmet>
-          <title>Myactivity - Loyal Cooked Shark</title>
-          <meta property="og:title" content="Myactivity - Loyal Cooked Shark" />
+          <title>Myactivity - ClearMind</title>
+          <meta property="og:title" content="Myactivity - ClearMind" />
         </Helmet>
         <div className="myactivity-hero">
-          <button className="myactivity-hero-button1 button">Log in</button>
+          <NavBar rootClassName="nav-bar-root-class-name"></NavBar>
           <div className="myactivity-hero1">
             <div className="myactivity-container1">
               <h1 className="myactivity-hero-heading heading1">Clear Mind</h1>
               <span className="myactivity-hero-sub-heading">
                 Discover the Power of Meditation
               </span>
-              <div className="myactivity-btn-group">
-                <button className="myactivity-home-button button">Home</button>
-              </div>
             </div>
           </div>
         </div>

@@ -3,6 +3,8 @@ import { Helmet } from 'react-helmet'
 import { useParams, useHistory } from 'react-router-dom'
 import axios from 'axios'
 import './item.css'
+import NavBar from '../components/nav-bar'
+
 
 const Item = (props) => {
   const history = useHistory();
@@ -100,19 +102,13 @@ const Item = (props) => {
         <meta property="og:title" content="Clear Mind" />
       </Helmet>
       <div className="item-hero">
-        <button className="item-hero-button1 button">Log in</button>
+        <NavBar rootClassName="nav-bar-root-class-name"></NavBar>
         <div className="item-hero1">
           <div className="item-container1">
             <h1 className="item-hero-heading heading1">Clear Mind</h1>
             <span className="item-hero-sub-heading">
               Discover the Power of Meditation
             </span>
-            <div className="item-btn-group">
-              <button className="item-home-button button" onClick={handleHome}>Home</button>
-              <button className="item-hero-button2 button" onClick={handleAllItems}>
-                More Exercises→
-              </button>
-            </div>
           </div>
         </div>
       </div>

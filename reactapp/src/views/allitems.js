@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import { useHistory, Link  } from 'react-router-dom'
 import { Helmet } from 'react-helmet'
+import NavBar from '../components/nav-bar'
 
 import ImageText from '../components/image-text'
 import './allitems.css'
@@ -58,16 +59,13 @@ const Allitems = (props) => {
         <meta property="og:title" content="Clear mind" />
       </Helmet>
       <div className="allitems-hero">
-        <button className="allitems-hero-button1 button">Log in</button>
+        <NavBar rootClassName="nav-bar-root-class-name"></NavBar>
         <div className="allitems-hero1">
           <div className="allitems-container1">
             <h1 className="allitems-hero-heading heading1">Clear Mind</h1>
             <span className="allitems-hero-sub-heading">
               Discover the Power of Meditation
             </span>
-            <div className="allitems-btn-group">
-              <button className="allitems-home-button button" onClick={handleHome} >Home</button>
-            </div>
           </div>
         </div>
       </div>

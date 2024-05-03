@@ -4,6 +4,7 @@ import { Helmet } from 'react-helmet'
 
 import InfoAccount from '../components/info-account'
 import './account.css'
+import NavBar from '../components/nav-bar'
 
 
 const Account = (props) => {
@@ -41,6 +42,7 @@ const Account = (props) => {
         <meta property="og:title" content="Account - Clear Mind" />
       </Helmet>
       <div className="account-hero">
+        <NavBar rootClassName="nav-bar-root-class-name"></NavBar>
         <div className="account-hero1">
           <div className="account-container1">
             <h1 className="log-in-hero-heading heading1">
