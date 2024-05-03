@@ -11,6 +11,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.models import User
 import json
 from django.db.models import Count, Case, When, IntegerField
+from datetime import datetime, timedelta
 
 
 class CustomUserCreationForm(UserCreationForm):
@@ -88,19 +89,41 @@ def user_activity_breathing(request):
 
 
 def user_activity_calendar(request):
-    user_activities = UserActivity.objects.filter(user=request.user)
-    activities_grouped_by_date = user_activities.values('date').annotate(
-        count=Count('date'),
-        level=Case(
-            When(count=1, then=1),
-            When(count__range=(2, 3), then=2),
-            When(count__gte=4, then=3),
-            default=0,
-            output_field=IntegerField(),
+    user = request.user
+    if user.is_authenticated:
+        # Calculate date one year before today
+        today = datetime.now().date()
+        one_year_ago = today - timedelta(days=365)
+        
+        # Get user activities within the last year
+        user_activities = UserActivity.objects.filter(user=user, date__range=[one_year_ago, today])
+
+        # Group activities by date and annotate with count and level
+        activities_grouped_by_date = user_activities.values('date').annotate(
+            count=Count('date'),
+            level=Case(
+                When(count=1, then=1),
+                When(count__range=(2, 3), then=2),
+                When(count__gte=4, then=3),
+                default=0,
+                output_field=IntegerField(),
+            )
         )
-    )
-    activity_data = list(activities_grouped_by_date)
-    return JsonResponse(activity_data, safe=False)
+
+        # Serialize the activity data
+        activity_data = list(activities_grouped_by_date.values('date', 'count', 'level'))
+
+
+        # Check if the first date of the period exists in the activity data
+        first_date_period = one_year_ago.strftime('%Y-%m-%d')
+        if not any(activity['date'] == first_date_period for activity in activity_data):
+            # If the first date doesn't exist, append it with count and level as 0
+            activity_data.insert(0,{'date': datetime.strptime(first_date_period, '%Y-%m-%d').date(), 'count': 0, 'level': 0})
+
+        return JsonResponse(activity_data, safe=False)
+
+    return JsonResponse({'status': 'error', 'message': 'User is not authenticated'}, status=401)
+
 
 @csrf_exempt
 def record_activity_view(request):
@@ -110,11 +133,12 @@ def record_activity_view(request):
             data = json.loads(request.body)
             date = data.get('date')
             type = data.get('type')
-            UserActivity.objects.create(user=user, date=date, type=type)
-            return JsonResponse({'status': 'success'}, status=201)
+            
+            # Check if a similar record already exists
+            if not UserActivity.objects.filter(user=user, date=date, type=type).exists():
+                UserActivity.objects.create(user=user, date=date, type=type)
+                return JsonResponse({'status': 'success'}, status=201)
         return JsonResponse({'status': 'error', 'message': 'User is not authenticated'}, status=401)
-
-
 
 class ItemDetailView(viewsets.ReadOnlyModelViewSet):
     queryset = Data.objects.all()

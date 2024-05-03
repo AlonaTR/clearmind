@@ -10,7 +10,6 @@ const Item = (props) => {
   const [item, setItem] = useState(null);
   const [loading, setLoading] = useState(true);
   const user = localStorage.getItem('user');
-  const [activityRecorded, setActivityRecorded] = useState(false); // Add a new state variable
 
 
   const getCurrentDate=() => {
@@ -46,25 +45,25 @@ const Item = (props) => {
 
     // Function to handle recording user activity
     const recordUserActivity = async () => {
-      if (!activityRecorded) { 
-        try {
-          await axios.post('/api/record-activity/', {
-            user: user,
-            type: item.type,
-            date: getCurrentDate()
-          });
-          setActivityRecorded(true); 
-        } catch (error) {
-          console.error('Error recording user activity:', error);
-        }
+      try {
+        await axios.post('/api/record-activity/', {
+          user: user,
+          type: item.type,
+          date: getCurrentDate()
+        });
+      } catch (error) {
+        console.error('Error recording user activity:', error);
       }
+      
     };
 
     // Function to check if the video has been watched halfway
     const handleTimeUpdate = (event) => {
       const videoElement = event.target;
       const halfWay = videoElement.duration / 2;
-      if (videoElement.currentTime >= halfWay && !activityRecorded) {
+      console.log(videoElement.currentTime, halfWay)
+      if (videoElement.currentTime >= halfWay ) {
+        console.log('POST')
         videoElement.removeEventListener('timeupdate', handleTimeUpdate);
         recordUserActivity(); // Call the function to record user activity
       }
@@ -83,7 +82,7 @@ const Item = (props) => {
       }
     };
 
-  }, [itemid, item, activityRecorded]);
+  }, [itemid, item]);
 
 
   const handleHome = () => {

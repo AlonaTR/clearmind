@@ -25,6 +25,7 @@ const Activity = (props) => {
         }); 
         console.log('Response data:', response.data);
         setActivityDataCalendar(response.data);
+        console.log(activityDataCalendar)
       } catch (error) {
         console.error('Error fetching activity data:', error);
       }
