@@ -68,7 +68,7 @@ const LogIn = (props) => {
         setUserData(data.user);
         props.history.push('/account'); // Redirect to account page
       } else {
-        setLoginError('Wrong email or password');
+        setLoginError('Wrong username or password');
       }
     } catch (error) {
       console.error('Login error:', error);
@@ -129,9 +129,7 @@ const LogIn = (props) => {
         <div className="log-in-hero1">
           <div className="log-in-container1">
             <h1 className="log-in-hero-heading heading1">
-              <Link to='/home' className="log-in-hero-heading-link">
-                Clear Mind
-              </Link>
+              
             </h1>
             <span className="allitems-hero-sub-heading">
               Discover the Power of Meditation

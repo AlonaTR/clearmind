@@ -5,11 +5,16 @@ import { Helmet } from 'react-helmet'
 import InfoAccount from '../components/info-account'
 import './account.css'
 import NavBar from '../components/nav-bar'
-
+import EditForm from '../components/edit-form'
 
 const Account = (props) => {
   const [userData, setUserData] = useState(null);
   const history = useHistory(); 
+  const [editMode, setEditMode] = useState(false);
+
+  const toggleEditMode = () => {
+    setEditMode(!editMode);
+  };
 
   useEffect(() => {
     const user = localStorage.getItem('user');
@@ -51,7 +56,10 @@ const Account = (props) => {
               </Link>
             </h1>
             <div className="account-container2">
-              {userData ? ( // Check if userData is not null
+            {editMode ? (
+              <EditForm userData={userData} setEditMode={setEditMode} />
+            ) : (
+              userData ? ( // Check if userData is not null
                 <div className='info-account-container info-account-root-class-name'>
                   <span className="info-account-text-name">Username:</span>
                   <span className="info-account-text-name1">{userData.username}</span>
@@ -62,11 +70,12 @@ const Account = (props) => {
               ) : (
                 
                 <p>Loading user data...</p> // Display a loading message or spinner
+              )
               )}
             </div>
             <div className="account-btn-group">
               <button className="account-log-out-button button" onClick={handleLogout}>Log Out</button>
-              <button className="account-edit-button button">Edit→</button>
+              <button className="account-edit-button button" onClick={toggleEditMode}>Edit→</button>
             </div>
           </div>
         </div>

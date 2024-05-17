@@ -53,6 +53,37 @@ def login_view(request):
             return JsonResponse({'status': 'error', 'message': 'Invalid credentials'})
 
 
+from django.contrib.auth import authenticate
+
+@csrf_exempt
+def update_user_view(request):
+    if request.method == 'POST' and request.user.is_authenticated:
+        data = json.loads(request.body)
+        
+        user = request.user
+        
+        current_password = data.get('currentPassword')
+        new_password = data.get('newPassword')
+        
+        if not user.check_password(current_password):
+            return JsonResponse({'status': 'error', 'message': 'Current password is incorrect'}, status=400)
+        
+        username = data.get('username')
+        email = data.get('email')
+        
+        user.username = username
+        user.email = email
+        
+        if new_password:
+            user.set_password(new_password)
+        
+        user.save()
+        
+        return JsonResponse({'status': 'success', 'message': 'User updated successfully.'})
+    else:
+        return JsonResponse({'status': 'error', 'message': 'Invalid request'}, status=400)
+
+
 def user_activity_meditation(request):
     user_activities = UserActivity.objects.filter(user=request.user, type=UserActivity.MEDITATION)
     if not user_activities.exists():

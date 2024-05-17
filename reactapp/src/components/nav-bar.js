@@ -29,7 +29,11 @@ const NavBar = (props) => {
   return (
     <div className={`nav-bar-container ${props.rootClassName} `}>
       <header data-role="Header" className="nav-bar-header">
-        <span className="nav-bar-text">{props.name}</span>
+        <span className="nav-bar-text">
+          <Link to='/home' className="log-in-hero-heading-link">
+          {props.name}
+          </Link>
+        </span>
         <NavigationLinks
           rootClassName="navigation-links-root-class-name8"
           className=""
