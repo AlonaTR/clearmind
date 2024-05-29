@@ -30,6 +30,14 @@ const Account = (props) => {
     }
   }, [history]);
   
+  const onFormSubmit = () => {
+    const user = localStorage.getItem('user');
+    if (user) {
+      const parsedUser = JSON.parse(user);
+      setUserData(parsedUser);
+    }
+    setEditMode(false);
+  };
 
   // Function to handle user logout
   const handleLogout = () => {
@@ -57,7 +65,7 @@ const Account = (props) => {
             </h1>
             <div className="account-container2">
             {editMode ? (
-              <EditForm userData={userData} setEditMode={setEditMode} />
+              <EditForm userData={userData} setEditMode={setEditMode} onFormSubmit={onFormSubmit} />
             ) : (
               userData ? ( // Check if userData is not null
                 <div className='info-account-container info-account-root-class-name'>

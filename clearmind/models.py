@@ -20,7 +20,7 @@ class Data(models.Model):
     name = models.CharField(max_length=100)
     type = models.CharField(max_length=100, choices=TYPE_CHOICES)
     image = models.ImageField(upload_to='images/', default='default_image.jpg')
-    video = models.FileField(upload_to='videos/')
+    video_id = models.CharField(max_length=100, default='inpok4MKVLM') 
     test_result = models.IntegerField()
     info = models.TextField()
 

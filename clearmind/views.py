@@ -65,8 +65,8 @@ def update_user_view(request):
         current_password = data.get('currentPassword')
         new_password = data.get('newPassword')
         
-        if not user.check_password(current_password):
-            return JsonResponse({'status': 'error', 'message': 'Current password is incorrect'}, status=400)
+        #if not user.check_password(current_password):
+        #    return JsonResponse({'status': 'error', 'message': 'Current password is incorrect'}, status=400)
         
         username = data.get('username')
         email = data.get('email')
@@ -78,6 +78,10 @@ def update_user_view(request):
             user.set_password(new_password)
         
         user.save()
+
+        user = authenticate(username=username, password=new_password if new_password else current_password)
+        if user is not None:
+            login(request, user)
         
         return JsonResponse({'status': 'success', 'message': 'User updated successfully.'})
     else:

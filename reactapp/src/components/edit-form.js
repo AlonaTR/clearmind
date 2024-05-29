@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import './edit-form.css'
 
 const EditForm = (props) => {
-  const { userData, setEditMode } = props;
+  const { userData, setEditMode, onFormSubmit } = props;
   const [formState, setFormState] = useState({
     username: userData.username,
     email: userData.email,
@@ -22,11 +22,17 @@ const EditForm = (props) => {
     const newErrors = {};
     if (!formState.username) newErrors.username = 'You should type your name';
     if (!formState.email) newErrors.email = 'Type your Email';
-    if (formState.newPassword && formState.newPassword.length < 6) {
-      newErrors.newPassword = 'Your password should have min 6 symbols';
-    }
-    if (formState.newPassword !== formState.confirmNewPassword) {
-      newErrors.confirmNewPassword = 'Passwords do not match';
+    if (formState.newPassword) {
+      if (formState.newPassword.length < 6) {
+        newErrors.newPassword = 'Your password should have min 6 symbols';
+      }
+      if (formState.newPassword !== formState.confirmNewPassword) {
+        newErrors.confirmNewPassword = 'Passwords do not match';
+      }
+      // Ensure current password is present when changing password
+      if (!formState.currentPassword) {
+        newErrors.currentPassword = 'Current password is required to change password';
+      }
     }
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -35,14 +41,17 @@ const EditForm = (props) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!validateForm()) return;
-
+  
     const payload = {
       username: formState.username,
       email: formState.email,
-      currentPassword: formState.currentPassword,
-      newPassword: formState.newPassword,
     };
-
+  
+    if (formState.newPassword) {
+      payload.currentPassword = formState.currentPassword;
+      payload.newPassword = formState.newPassword;
+    }
+  
     try {
       const response = await fetch('/api/update-user', {
         method: 'POST',
@@ -52,7 +61,14 @@ const EditForm = (props) => {
       });
       const data = await response.json();
       if (data.status === 'success') {
+        const updatedUser = {
+          username: formState.username,
+          email: formState.email,
+        };
+        localStorage.setItem('user', JSON.stringify(updatedUser));
+        
         setEditMode(false);
+        onFormSubmit();
       } else {
         console.log(data.message);
         setErrors({ ...errors, form: data.message });
@@ -62,6 +78,7 @@ const EditForm = (props) => {
       setErrors({ ...errors, form: 'Request failed' });
     }
   };
+  
 
   return (
     <form className="edit-form-container" onSubmit={handleSubmit}>

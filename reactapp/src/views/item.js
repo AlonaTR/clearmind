@@ -128,12 +128,34 @@ const Item = (props) => {
                   Relax, feel your body and enjoy the process
                 </span>
               </div>
-              <video 
-                controls 
-                src={item.video}
-                //poster={item.image}
-                className="item-video"
-              ></video>
+              <div className="video-container">
+                <iframe
+                    className="item-video"
+                    src={`https://www.youtube.com/embed/${item.video_id}`}
+                    frameBorder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                    onLoad={() => {
+                        const iframe = document.querySelector('.item-video');
+                        const contentWindow = iframe.contentWindow;
+                        
+                        let listener;
+
+                        if (contentWindow) {
+                            listener = () => {
+                                const currentTime = contentWindow.document.querySelector('video').currentTime;
+                                const duration = contentWindow.document.querySelector('video').duration;
+                                if (currentTime >= duration / 2) {
+                                    recordUserActivity();
+                                    iframe.removeEventListener('timeupdate', listener);
+                                }
+                            };
+
+                            iframe.addEventListener('timeupdate', listener);
+                        }
+                    }}
+                ></iframe>
+            </div>
             </div>
           )
         )}
