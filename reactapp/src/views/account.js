@@ -81,10 +81,12 @@ const Account = (props) => {
               )
               )}
             </div>
-            <div className="account-btn-group">
-              <button className="account-log-out-button button" onClick={handleLogout}>Log Out</button>
-              <button className="account-edit-button button" onClick={toggleEditMode}>Edit→</button>
-            </div>
+            {!editMode && (
+              <div className="account-btn-group">
+                <button className="account-log-out-button button" onClick={handleLogout}>Log Out</button>
+                <button className="account-edit-button button" onClick={toggleEditMode}>Edit→</button>
+              </div>
+            )}
           </div>
         </div>
       </div>

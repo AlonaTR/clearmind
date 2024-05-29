@@ -151,7 +151,6 @@
     .edit-form-text-password {
       font-size: 11px;
       align-self: flex-start;
-      margin-top: var(--dl-space-space-unit);
     }
     .edit-form-input-password {
       border-color: var(--dl-color-gray-white);
