@@ -5,6 +5,8 @@ import axios from 'axios';
 import './activity.css'
 import ActivityCalendar from 'react-activity-calendar'
 import NavBar from '../components/nav-bar'
+import Footer from '../components/footer'
+
 
 
 
@@ -144,9 +146,8 @@ const Activity = (props) => {
               }}
             />
           </div>
-        <div className="myactivity-footer">
-          <div className="myactivity-container2"></div>
-        </div>
+          <div id='footer'></div>
+          <Footer rootClassName="footer-root-class-name"></Footer>
       </div>
     </>
   )

@@ -4,7 +4,7 @@ import axios from 'axios'
 import { useHistory, Link  } from 'react-router-dom'
 import { Helmet } from 'react-helmet'
 import NavBar from '../components/nav-bar'
-
+import Footer from '../components/footer'
 import ImageText from '../components/image-text'
 import './allitems.css'
 
@@ -127,9 +127,8 @@ const Allitems = (props) => {
           </div>
         </div>
       </div>
-      <div className="allitems-footer">
-        <div className="allitems-container5"></div>
-      </div>
+      <div id='footer'></div>
+      <Footer rootClassName="footer-root-class-name"></Footer>
     </div>
   )
 }

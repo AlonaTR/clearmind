@@ -5,6 +5,8 @@ import { Helmet } from 'react-helmet'
 import NavBar from '../components/nav-bar'
 import TestQuestion from '../components/test-question'
 import './test.css'
+import Footer from '../components/footer'
+
 
 const Test = (props) => {
   const history = useHistory(); 
@@ -183,9 +185,8 @@ const Test = (props) => {
           </div>
         </div>
       </div>
-      <div className="test-footer">
-        <div className="test-container2"></div>
-      </div>
+      <div id='footer'></div>
+      <Footer rootClassName="footer-root-class-name"></Footer>
     </div>
   )
 }

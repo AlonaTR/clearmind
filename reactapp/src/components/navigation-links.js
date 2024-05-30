@@ -11,7 +11,7 @@ const NavigationLinks = (props) => {
         <a href="/allitems" className="navigation-links-text1">{props.text1}</a>
         <a href="/test" className="navigation-links-text2">{props.text2}</a>
         <a href="home#common-questions" className="navigation-links-text3">{props.text3}</a>
-        <a href="/contact" className="navigation-links-text4">{props.text4}</a>
+        <a href="#footer" className="navigation-links-text4">{props.text4}</a>
     </nav>
   )
 }

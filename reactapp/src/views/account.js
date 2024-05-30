@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useHistory, Link  } from 'react-router-dom'
 import { Helmet } from 'react-helmet'
-
+import Footer from '../components/footer'
 import InfoAccount from '../components/info-account'
 import './account.css'
 import NavBar from '../components/nav-bar'
@@ -90,6 +90,8 @@ const Account = (props) => {
           </div>
         </div>
       </div>
+      <div id='footer'></div>
+      <Footer rootClassName="footer-root-class-name"></Footer>
     </div>
   )
 }

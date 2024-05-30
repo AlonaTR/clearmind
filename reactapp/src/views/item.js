@@ -4,6 +4,7 @@ import { useParams, useHistory } from 'react-router-dom'
 import axios from 'axios'
 import './item.css'
 import NavBar from '../components/nav-bar'
+import Footer from '../components/footer'
 
 
 const Item = (props) => {
@@ -160,9 +161,8 @@ const Item = (props) => {
           )
         )}
       </div>
-      <div className="item-footer">
-        <div className="item-container3"></div>
-      </div>
+      <div id='footer'></div>
+      <Footer rootClassName="footer-root-class-name"></Footer>
     </div>
   )
 }

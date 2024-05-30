@@ -6,6 +6,7 @@ import RegisterForm from '../components/register-form'
 import LogInForm from '../components/log-in-form'
 import './log-in.css'
 import NavBar from '../components/nav-bar'
+import Footer from '../components/footer'
 
 
 const LogIn = (props) => {
@@ -176,6 +177,8 @@ const LogIn = (props) => {
           </div>
         </div>
       </div>
+      <div id='footer'></div>
+      <Footer rootClassName="footer-root-class-name"></Footer>
     </div>
   )
 }

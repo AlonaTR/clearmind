@@ -7,6 +7,7 @@ import PhotoLogo from '../components/photo-logo'
 import FeatureCard from '../components/feature-card'
 import GalleryCard11 from '../components/gallery-card11'
 import Question from '../components/question'
+import Footer from '../components/footer'
 import './home.css'
 import NavBar from '../components/nav-bar'
 
@@ -281,9 +282,9 @@ const Home = (props) => {
           </div>
         </div>
       </div>
-      <div className="home-footer">
-        <div className="home-container7"></div>
-      </div>
+      <div id='footer'></div>
+       <Footer rootClassName="footer-root-class-name" ></Footer>
+      
     </div>
   )
 }

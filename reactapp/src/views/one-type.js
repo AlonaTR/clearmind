@@ -5,6 +5,7 @@ import { Helmet } from 'react-helmet'
 import ImageText from '../components/image-text'
 import './one-type.css'
 import NavBar from '../components/nav-bar'
+import Footer from '../components/footer'
 
 
 
@@ -70,9 +71,8 @@ const OneType = ({ match }) => {
           </div>
         </div>
       </div>
-      <div className="one-type-footer">
-        <div className="one-type-container3"></div>
-      </div>
+      <div id='footer'></div>
+      <Footer rootClassName="footer-root-class-name"></Footer>
     </div>
   )
 }
