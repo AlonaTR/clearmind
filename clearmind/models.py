@@ -1,9 +1,8 @@
 from django.db import models
-from os.path import basename
-from django.utils.translation import gettext_lazy as _
 from django.contrib.auth.models import User
-
-
+import requests
+from django.core.files import File
+from io import BytesIO
 
 class Data(models.Model):
     MEDITATION = 'Meditation'
@@ -24,8 +23,18 @@ class Data(models.Model):
     test_result = models.IntegerField()
     info = models.TextField()
 
+    def save(self, *args, **kwargs):
+        if not self.image or self.image == 'default_image.jpg':
+            thumbnail_url = f'https://img.youtube.com/vi/{self.video_id}/maxresdefault.jpg'
+            response = requests.get(thumbnail_url)
+            if response.status_code == 200:
+                img_temp = BytesIO(response.content)
+                self.image.save(f'{self.video_id}.jpg', File(img_temp), save=False)
+        super(Data, self).save(*args, **kwargs)
+
     def __str__(self):
         return self.name
+
 
 from django.db import models
 

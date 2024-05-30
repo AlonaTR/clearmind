@@ -166,6 +166,7 @@ const Home = (props) => {
                 <GalleryCard11
                   title={item.name}
                   imageSrc={item.image}
+                  subtitle={item.info}
                   rootClassName={`rootClassName1${item.id}`}
                 ></GalleryCard11>
               </Link>

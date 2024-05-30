@@ -6,17 +6,27 @@ import ImageText from '../components/image-text'
 import './one-type.css'
 import NavBar from '../components/nav-bar'
 import Footer from '../components/footer'
+import GalleryCard11 from '../components/gallery-card11'
 
-
+const getDisplayName = (typename) => {
+  switch (typename) {
+    case 'meditation':
+      return 'Meditations';
+    case 'affirmation':
+      return 'Affirmations';
+    case 'breathing':
+      return 'Breathing Exercises';
+    default:
+      return typename;
+  }
+};
 
 const OneType = ({ match }) => {
   const { typename } = match.params;
   const [data, setData] = useState([]);
   const history = useHistory(); 
+  const displayName = getDisplayName(typename);
 
-  const handleHome = () => {
-    history.push('/home'); 
-  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -53,18 +63,18 @@ const OneType = ({ match }) => {
         <div className="one-type-details1">
           <div className="one-type-meditations">
             <h2 className="one-type-details-heading heading2">
-              <span className="one-type-text">{typename}</span>
+              <span className="one-type-text">{displayName}</span>
               <br />
             </h2>
             <div className="one-type-container2">
               {data.map(item => (
                 <Link to={`/item/${item.id}`} key={item.id}>
-                  <ImageText
-                    key={item.id}
-                    imageSrc1={item.image}
-                    heading={item.name}
-                    rootClassName={`image-text-root-class-name${item.id}`}
-                  />
+                  <GalleryCard11
+                  title={item.name}
+                  imageSrc={item.image}
+                  subtitle={item.info}
+                  rootClassName={`rootClassName1${item.id}`}
+                  ></GalleryCard11>
                 </Link>
               ))}
             </div>
@@ -77,4 +87,4 @@ const OneType = ({ match }) => {
   )
 }
 
-export default OneType
+export default OneType;

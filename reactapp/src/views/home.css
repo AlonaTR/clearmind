@@ -285,6 +285,10 @@
   font-family: "Raleway";
   line-height: 1.6;
 }
+.feature-card-feature-card{
+  height: 100%;
+}
+
 .home-gallery-sub-heading {
   color: rgb(153, 153, 153);
   text-align: center;

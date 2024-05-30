@@ -7,6 +7,8 @@ import NavBar from '../components/nav-bar'
 import Footer from '../components/footer'
 import ImageText from '../components/image-text'
 import './allitems.css'
+import GalleryCard11 from '../components/gallery-card11'
+
 
 const Allitems = (props) => {
   const history = useHistory(); 
@@ -79,12 +81,12 @@ const Allitems = (props) => {
             <div className="allitems-container2">
               {meditations.map(item => (
                 <Link to={`/item/${item.id}`} key={item.id}>
-                  <ImageText
-                    key={item.id}
-                    imageSrc1={item.image}
-                    heading={item.name}
-                    rootClassName={`image-text-root-class-name${item.id}`}
-                  />
+                  <GalleryCard11
+                    title={item.name}
+                    imageSrc={item.image}
+                    subtitle={item.info}
+                    rootClassName={`rootClassName1${item.id}`}
+                  ></GalleryCard11>
                 </Link>
               ))}
             </div>
@@ -97,12 +99,12 @@ const Allitems = (props) => {
             <div className="allitems-container3">
               {affirmations.map(item => (
                 <Link to={`/item/${item.id}`} key={item.id}>
-                  <ImageText
-                    key={item.id}
-                    imageSrc1={item.image}
-                    heading={item.name}
-                    rootClassName={`image-text-root-class-name${item.id}`}
-                  />
+                  <GalleryCard11
+                    title={item.name}
+                    imageSrc={item.image}
+                    subtitle={item.info}
+                    rootClassName={`rootClassName1${item.id}`}
+                  ></GalleryCard11>
                 </Link>
               ))}
             </div>
@@ -115,12 +117,12 @@ const Allitems = (props) => {
             <div className="allitems-container4">
               {breathingExercises.map(item => (
                 <Link to={`/item/${item.id}`} key={item.id}>
-                  <ImageText
-                    key={item.id}
-                    imageSrc1={item.image}
-                    heading={item.name}
-                    rootClassName={`image-text-root-class-name${item.id}`}
-                  />
+                  <GalleryCard11
+                    title={item.name}
+                    imageSrc={item.image}
+                    subtitle={item.info}
+                    rootClassName={`rootClassName1${item.id}`}
+                  ></GalleryCard11>
                 </Link>
               ))}
             </div>
