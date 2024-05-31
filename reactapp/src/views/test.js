@@ -21,10 +21,6 @@ const Test = (props) => {
   const [isAnswerSelected, setIsAnswerSelected] = useState(false);
 
 
-  const handleHome = () => {
-    history.push('/home'); 
-  };
-
   useEffect(() => {
     // Fetch test questions from the backend
     const fetchQuestions = async () => {
@@ -53,18 +49,28 @@ const Test = (props) => {
     if (isLastQuestion) {
       // Calculate the total score only if it's the last question
       const score = Object.values(selectedAnswers).reduce((acc, points) => acc + points, 0);
-      setShowScore(true); // Set showScore to true to display the score
+      setShowScore(true); 
   
-      // Fetch recommendations from the backend
       try {
         const response = await axios.get(`/api/recommendations/${score}`);
-        setRecommendations(response.data); // Assumes you have a state variable for storing recommendations
+        setRecommendations(response.data); 
       } catch (error) {
         console.error('Error fetching recommendations:', error);
       }
     } else {
       setIsAnswerSelected(false);
       setCurrentQuestionIndex(currentQuestionIndex + 1);
+    }
+  };
+
+  const handlePreviousQuestion = () => {
+    if (showScore) {
+      setShowScore(false); // Hide the score
+      setCurrentQuestionIndex(questions.length - 1);
+      setIsAnswerSelected(selectedAnswers[questions[questions.length - 1].id] != null); // Set answer state of the last question
+    } else if (currentQuestionIndex > 0) {
+      setIsAnswerSelected(selectedAnswers[questions[currentQuestionIndex - 1]?.id] != null); // Check if an answer exists for the previous question
+      setCurrentQuestionIndex(currentQuestionIndex - 1);
     }
   };
   
@@ -167,6 +173,7 @@ const Test = (props) => {
                     { text: currentQuestion.answer_choice_3, points: currentQuestion.answer_choice_3_points },
                     { text: currentQuestion.answer_choice_4, points: currentQuestion.answer_choice_4_points },
                   ]}
+                  selectedAnswer={selectedAnswers[currentQuestion.id]}
                   onAnswerSelect={(points) => handleAnswerSelect(currentQuestion.id, points)}
                 />
               )}
@@ -192,14 +199,7 @@ const Test = (props) => {
 
               <div className="test-buttons">
                 {currentQuestionIndex > 0 || showScore ? ( // Show the "Back" button if not on the first question or if showing the score
-                  <button className="test-back-button button" onClick={() => {
-                    if (showScore) {
-                      setShowScore(false); // Hide the score
-                      setCurrentQuestionIndex(questions.length - 1); // Go back to the last question
-                    } else {
-                      setCurrentQuestionIndex(currentQuestionIndex - 1);
-                    }
-                  }}>
+                  <button className="test-back-button button" onClick={handlePreviousQuestion}>
                     &lt;-- Back
                   </button>
                 ) : null}

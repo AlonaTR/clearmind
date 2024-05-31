@@ -2,7 +2,8 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import './test-question.css'
 
-const TestQuestion = ({ question, answers, onAnswerSelect }) => { // Destructure the props here
+const TestQuestion = ({ question, answers, selectedAnswer, onAnswerSelect }) => { // Destructure the props here
+
   const handleAnswerChange = (answerPoints) => {
     onAnswerSelect(answerPoints);
   };
@@ -18,6 +19,7 @@ const TestQuestion = ({ question, answers, onAnswerSelect }) => { // Destructure
             id={`answer-${index}`}
             className="test-question-radiobutton"
             onChange={() => handleAnswerChange(answer.points)}
+            checked={selectedAnswer === answer.points} // Mark the radio button as checked if the points match
           />
           <label htmlFor={`answer-${index}`} className="test-question-text1">
             {answer.text}
@@ -26,7 +28,6 @@ const TestQuestion = ({ question, answers, onAnswerSelect }) => { // Destructure
       ))}
     </div>
   )
-    
 }
 
 TestQuestion.propTypes = {
@@ -37,6 +38,7 @@ TestQuestion.propTypes = {
       points: PropTypes.number.isRequired,
     })
   ).isRequired,
+  selectedAnswer: PropTypes.number,
   onAnswerSelect: PropTypes.func.isRequired,
 }
 
