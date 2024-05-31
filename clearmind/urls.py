@@ -35,6 +35,8 @@ urlpatterns = [
     path('api/user-activity-breathing', user_activity_breathing, name='api_user_activity_breathing'),
     path('api/record-activity/', views.record_activity_view, name='api_record_activity'),
     path('api/update-user', update_user_view, name='api_update_user'),
+    path('api/recommendations/<int:score>/', get_recommendations, name='recommendations'),
+
 
 ] 
 

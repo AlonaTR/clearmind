@@ -122,6 +122,15 @@
   flex-direction: row;
   justify-content: center;
 }
+.test-recommendations {
+  width: 100%;
+  display: grid;
+  padding: var(--dl-space-space-threeunits);
+  grid-gap: var(--dl-space-space-unit);
+  max-width: var(--dl-size-size-maxwidth);
+  grid-template-columns: 1fr 1fr 1fr;
+  
+}
 .test-faq1 {
   gap: var(--dl-space-space-twounits);
   width: 100%;
@@ -249,6 +258,9 @@
   .test-hero-heading {
     text-align: center;
   }
+  .test-recommendations {
+    grid-template-columns: 1fr 1fr;
+  }
   .test-hero-sub-heading {
     color: var(--dl-color-gray-white);
     font-size: 18px;
@@ -275,6 +287,10 @@
   .test-hero-sub-heading {
     padding-left: var(--dl-space-space-unit);
     padding-right: var(--dl-space-space-unit);
+  }
+  .test-recommendations {
+    padding-left: var(--dl-space-space-twounits);
+    padding-right: var(--dl-space-space-twounits);
   }
   .test-faq1 {
     padding-left: var(--dl-space-space-twounits);
@@ -309,6 +325,12 @@
     color: var(--dl-color-gray-800);
     font-size: 18px;
     line-height: 1.6;
+  }
+  .test-recommendations {
+    padding-top: var(--dl-space-space-twounits);
+    padding-left: var(--dl-space-space-unit);
+    padding-right: var(--dl-space-space-unit);
+    padding-bottom: var(--dl-space-space-twounits);
   }
   .test-back-button {
     margin-top: var(--dl-space-space-unit);

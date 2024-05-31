@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
-import { useHistory } from 'react-router-dom'
+import { useHistory, Link } from 'react-router-dom'
 import { Helmet } from 'react-helmet'
 import NavBar from '../components/nav-bar'
 import TestQuestion from '../components/test-question'
 import './test.css'
 import Footer from '../components/footer'
+import GalleryCard11 from '../components/gallery-card11'
+
 
 
 const Test = (props) => {
@@ -13,9 +15,11 @@ const Test = (props) => {
   const [questions, setQuestions] = useState([]);
   const [selectedAnswers, setSelectedAnswers] = useState({});
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
-  const [totalScore, setTotalScore] = useState(0);
   const [showScore, setShowScore] = useState(false); // New state variable to control score display
   const isLastQuestion = currentQuestionIndex === questions.length - 1;
+  const [recommendations, setRecommendations] = useState([]);
+  const [isAnswerSelected, setIsAnswerSelected] = useState(false);
+
 
   const handleHome = () => {
     history.push('/home'); 
@@ -40,18 +44,30 @@ const Test = (props) => {
       ...selectedAnswers,
       [questionId]: answerPoints,
     });
+    setIsAnswerSelected(true); // Updated to true when an answer is selected
   };
+  
 
-  const handleNextQuestion = () => {
+
+  const handleNextQuestion = async () => {
     if (isLastQuestion) {
       // Calculate the total score only if it's the last question
       const score = Object.values(selectedAnswers).reduce((acc, points) => acc + points, 0);
-      setTotalScore(score);
       setShowScore(true); // Set showScore to true to display the score
+  
+      // Fetch recommendations from the backend
+      try {
+        const response = await axios.get(`/api/recommendations/${score}`);
+        setRecommendations(response.data); // Assumes you have a state variable for storing recommendations
+      } catch (error) {
+        console.error('Error fetching recommendations:', error);
+      }
     } else {
+      setIsAnswerSelected(false);
       setCurrentQuestionIndex(currentQuestionIndex + 1);
     }
   };
+  
 
   const currentQuestion = questions[currentQuestionIndex];
 
@@ -156,8 +172,21 @@ const Test = (props) => {
               )}
               {showScore && (
                 <div className="test-score-container">
-                  <h3>Your Total Score</h3>
-                  <p>{totalScore}</p>
+                  <h3>Recommended for You:</h3>
+                  {recommendations.length > 0 && (
+                    <div className="test-recommendations">
+                      {recommendations.map((item) => (
+                        <Link to={`/item/${item.id}`} key={item.id}>
+                          <GalleryCard11
+                          title={item.name}
+                          imageSrc={item.image}
+                          subtitle={item.info}
+                          rootClassName={`rootClassName1${item.id}`}
+                          ></GalleryCard11>
+                        </Link>
+                      ))}
+                    </div>
+                  )}
                 </div>
               )}
 
@@ -176,7 +205,7 @@ const Test = (props) => {
                 ) : null}
 
                 {!showScore && (
-                  <button className="test-next-button button" onClick={handleNextQuestion}>
+                  <button className="test-next-button button" onClick={handleNextQuestion} disabled={!isAnswerSelected}>
                     {isLastQuestion ? 'Result' : 'Next >'}
                   </button>
                 )}

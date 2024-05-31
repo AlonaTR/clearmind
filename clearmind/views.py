@@ -1,6 +1,8 @@
 from django.shortcuts import render
 from .models import *
 from rest_framework import viewsets
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
 from .models import Data, TestQuestion
 from .serializers import DataSerializer, TestQuestionSerializer
 from django.contrib.auth import login, authenticate
@@ -8,7 +10,6 @@ from django.contrib.auth.forms import UserCreationForm
 from django import forms
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
-from django.contrib.auth.models import User
 import json
 from django.db.models import Count, Case, When, IntegerField
 from datetime import datetime, timedelta
@@ -215,3 +216,9 @@ def oneitem_view(request, itemid):
     return render(request, 'index.html')
 
 
+@api_view(['GET'])
+def get_recommendations(request, score):
+    # Adjusting the range [score-1, score+1]
+    queryset = Data.objects.filter(test_result__gte=score-1, test_result__lte=score+1)[:2]
+    serializer = DataSerializer(queryset, many=True)
+    return Response(serializer.data)
