@@ -86,7 +86,7 @@ const Home = (props) => {
               Why You Need to Try Meditation
             </h2>
             <span className="home-details-sub-heading">
-              Experience Inner Peace and Transform Your Life
+            Meditation offers a sanctuary of calm in our fast-paced world. By practicing meditation, you can reduce stress, enhance focus, and improve emotional health. It fosters self-awareness, enabling you to better understand your thoughts and feelings. Additionally, meditation can boost creativity and problem-solving skills. Taking just a few minutes each day to meditate can transform your mental well-being, making you more resilient and centered. Give it a try and experience the profound benefits for yourself.
             </span>
           </div>
           <img

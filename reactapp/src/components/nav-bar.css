@@ -221,7 +221,7 @@
   
 }
 
-@media (min-width: 480px) {
+@media (min-width: 767px) {
   .mobile-nav-links-wrapper {
     display: none;
   }

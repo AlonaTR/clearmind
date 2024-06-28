@@ -16,7 +16,7 @@ const Activity = (props) => {
   const [activityDataAffirmation, setActivityDataAffirmation] = useState([]);
   const [activityDataBreathing, setActivityDataBreathing] = useState([]);
   const user = localStorage.getItem('user');
-
+  
 
   useEffect(() => {
     let isMounted = true; // Add this flag
@@ -133,7 +133,6 @@ const Activity = (props) => {
           </div>
           
         </div>
-        <div className="calendar">
             <ActivityCalendar 
               data={activityDataCalendar} 
               showWeekdayLabels = {true}
@@ -145,7 +144,6 @@ const Activity = (props) => {
                 light: ['#f0f0f0', '#bbeeff', '#99ccff', '#77aaff', '#5588ff'],
               }}
             />
-          </div>
           <div id='footer'></div>
           <Footer rootClassName="footer-root-class-name"></Footer>
       </div>
